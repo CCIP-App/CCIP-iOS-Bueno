@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		188D21F3B5470BD9D683DF1B /* libPods-CCIP-iOS-BuenoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 881B03198A2F962B50DC2BF9 /* libPods-CCIP-iOS-BuenoUITests.a */; };
+		2C2A36AB1E33BE7F009A65B8 /* Attendee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36AA1E33BE7F009A65B8 /* Attendee.m */; };
+		2C2A36AE1E33C19E009A65B8 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36AD1E33C19E009A65B8 /* Scenario.m */; };
+		2C2A36B71E33D5C6009A65B8 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C2A36B61E33D5C6009A65B8 /* Config.plist */; };
+		2C2A36BA1E33EB50009A65B8 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36B91E33EB50009A65B8 /* FileManager.m */; };
+		2C2A36BE1E33EB89009A65B8 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36BD1E33EB89009A65B8 /* APIManager.m */; };
 		2CEAA8481E06C992003FC4FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA8471E06C992003FC4FF /* main.m */; };
 		2CEAA84B1E06C992003FC4FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA84A1E06C992003FC4FF /* AppDelegate.m */; };
 		2CEAA84E1E06C992003FC4FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA84D1E06C992003FC4FF /* ViewController.m */; };
@@ -39,6 +44,15 @@
 
 /* Begin PBXFileReference section */
 		2A3B571BBE32C0D2CA60D4FF /* Pods-CCIP-iOS-Bueno.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-Bueno.release.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-Bueno/Pods-CCIP-iOS-Bueno.release.xcconfig"; sourceTree = "<group>"; };
+		2C2A36A91E33BE7F009A65B8 /* Attendee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attendee.h; path = DataModel/Attendee.h; sourceTree = "<group>"; };
+		2C2A36AA1E33BE7F009A65B8 /* Attendee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Attendee.m; path = DataModel/Attendee.m; sourceTree = "<group>"; };
+		2C2A36AC1E33C19E009A65B8 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenario.h; path = DataModel/Scenario.h; sourceTree = "<group>"; };
+		2C2A36AD1E33C19E009A65B8 /* Scenario.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Scenario.m; path = DataModel/Scenario.m; sourceTree = "<group>"; };
+		2C2A36B61E33D5C6009A65B8 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		2C2A36B81E33EB50009A65B8 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = Singleton/FileManager.h; sourceTree = "<group>"; };
+		2C2A36B91E33EB50009A65B8 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileManager.m; path = Singleton/FileManager.m; sourceTree = "<group>"; };
+		2C2A36BC1E33EB89009A65B8 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIManager.h; path = Singleton/APIManager.h; sourceTree = "<group>"; };
+		2C2A36BD1E33EB89009A65B8 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIManager.m; path = Singleton/APIManager.m; sourceTree = "<group>"; };
 		2CEAA8431E06C992003FC4FF /* CCIP-iOS-Bueno.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCIP-iOS-Bueno.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CEAA8471E06C992003FC4FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2CEAA8491E06C992003FC4FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,8 +110,30 @@
 		2C2A36A81E33BB52009A65B8 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				2C2A36A91E33BE7F009A65B8 /* Attendee.h */,
+				2C2A36AA1E33BE7F009A65B8 /* Attendee.m */,
+				2C2A36AC1E33C19E009A65B8 /* Scenario.h */,
+				2C2A36AD1E33C19E009A65B8 /* Scenario.m */,
 			);
 			name = DataModel;
+			sourceTree = "<group>";
+		};
+		2C2A36B31E33D4FC009A65B8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2C2A36BB1E33EB59009A65B8 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				2C2A36BC1E33EB89009A65B8 /* APIManager.h */,
+				2C2A36BD1E33EB89009A65B8 /* APIManager.m */,
+				2C2A36B81E33EB50009A65B8 /* FileManager.h */,
+				2C2A36B91E33EB50009A65B8 /* FileManager.m */,
+			);
+			name = Singletons;
 			sourceTree = "<group>";
 		};
 		2CEAA83A1E06C992003FC4FF = {
@@ -125,6 +161,8 @@
 		2CEAA8451E06C992003FC4FF /* CCIP-iOS-Bueno */ = {
 			isa = PBXGroup;
 			children = (
+				2C2A36BB1E33EB59009A65B8 /* Singletons */,
+				2C2A36B31E33D4FC009A65B8 /* Resources */,
 				2C2A36A81E33BB52009A65B8 /* DataModel */,
 				2CEAA8491E06C992003FC4FF /* AppDelegate.h */,
 				2CEAA84A1E06C992003FC4FF /* AppDelegate.m */,
@@ -135,6 +173,7 @@
 				2CEAA8541E06C992003FC4FF /* LaunchScreen.storyboard */,
 				2CEAA8571E06C992003FC4FF /* Info.plist */,
 				2CEAA8461E06C992003FC4FF /* Supporting Files */,
+				2C2A36B61E33D5C6009A65B8 /* Config.plist */,
 			);
 			path = "CCIP-iOS-Bueno";
 			sourceTree = "<group>";
@@ -306,6 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2A36B71E33D5C6009A65B8 /* Config.plist in Resources */,
 				2CEAA8561E06C992003FC4FF /* LaunchScreen.storyboard in Resources */,
 				2CEAA8531E06C992003FC4FF /* Assets.xcassets in Resources */,
 				2CEAA8511E06C992003FC4FF /* Main.storyboard in Resources */,
@@ -472,8 +512,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CEAA84E1E06C992003FC4FF /* ViewController.m in Sources */,
+				2C2A36AE1E33C19E009A65B8 /* Scenario.m in Sources */,
 				2CEAA84B1E06C992003FC4FF /* AppDelegate.m in Sources */,
 				2CEAA8481E06C992003FC4FF /* main.m in Sources */,
+				2C2A36BE1E33EB89009A65B8 /* APIManager.m in Sources */,
+				2C2A36BA1E33EB50009A65B8 /* FileManager.m in Sources */,
+				2C2A36AB1E33BE7F009A65B8 /* Attendee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
