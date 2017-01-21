@@ -93,6 +93,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C2A36A81E33BB52009A65B8 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		2CEAA83A1E06C992003FC4FF = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +125,7 @@
 		2CEAA8451E06C992003FC4FF /* CCIP-iOS-Bueno */ = {
 			isa = PBXGroup;
 			children = (
+				2C2A36A81E33BB52009A65B8 /* DataModel */,
 				2CEAA8491E06C992003FC4FF /* AppDelegate.h */,
 				2CEAA84A1E06C992003FC4FF /* AppDelegate.m */,
 				2CEAA84C1E06C992003FC4FF /* ViewController.h */,
@@ -709,6 +717,7 @@
 				2CEAA8721E06C992003FC4FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CEAA8731E06C992003FC4FF /* Build configuration list for PBXNativeTarget "CCIP-iOS-BuenoTests" */ = {
 			isa = XCConfigurationList;
@@ -717,6 +726,7 @@
 				2CEAA8751E06C992003FC4FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CEAA8761E06C992003FC4FF /* Build configuration list for PBXNativeTarget "CCIP-iOS-BuenoUITests" */ = {
 			isa = XCConfigurationList;
@@ -725,6 +735,7 @@
 				2CEAA8781E06C992003FC4FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
