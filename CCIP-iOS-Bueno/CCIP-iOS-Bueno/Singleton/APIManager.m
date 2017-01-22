@@ -8,7 +8,7 @@
 
 #import "APIManager.h"
 #import "FileManager.h"
-#import <RestKit.h>
+#import "RestKit.h"
 @interface APIManager()
 
 @property (nonatomic) NSDictionary* config;
@@ -41,7 +41,8 @@
 
 - (void)configureObjectManager {
     NSURL* baseUrl = [NSURL URLWithString:[self.config objectForKey:@"BaseUrl"]];
-    //[RKObjectManager setSharedManager:[RKObjectManager managerWithBaseURL:baseUrl]];
+    [RKObjectManager setSharedManager:[RKObjectManager managerWithBaseURL:baseUrl]];
+    [[[RKObjectManager sharedManager] HTTPClient] setAuthorizationHeaderWithToken:@""];
 }
 
 - (void)configureObjectMappings {
@@ -68,10 +69,19 @@
 }
 
 - (void)configureRequestDescriptors {
+    //[[RKObjectManager sharedManager] object]
 }
 
 - (void)configureResponseDescriptors {
-
+    RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    [[RKObjectManager sharedManager] addResponseDescriptor:attendeeResponseDescriptor];
 }
+
+- (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion {
+    [[RKObjectManager sharedManager] getObject:nil path:@"status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        completion((Attendee*)[mappingResult firstObject]);
+    } failure:nil];
+}
+
 
 @end

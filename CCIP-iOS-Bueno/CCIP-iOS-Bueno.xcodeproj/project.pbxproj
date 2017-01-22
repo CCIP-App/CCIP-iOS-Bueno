@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		188D21F3B5470BD9D683DF1B /* libPods-CCIP-iOS-BuenoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 881B03198A2F962B50DC2BF9 /* libPods-CCIP-iOS-BuenoUITests.a */; };
+		2C17144D1E3436A7006BC2B4 /* TokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C17144C1E3436A7006BC2B4 /* TokenField.m */; };
+		2C1714501E3436C8006BC2B4 /* RedeemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C17144F1E3436C8006BC2B4 /* RedeemViewController.m */; };
+		2C1714531E3436E1006BC2B4 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1714521E3436E1006BC2B4 /* CheckinViewController.m */; };
 		2C2A36AB1E33BE7F009A65B8 /* Attendee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36AA1E33BE7F009A65B8 /* Attendee.m */; };
 		2C2A36AE1E33C19E009A65B8 /* Scenario.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36AD1E33C19E009A65B8 /* Scenario.m */; };
 		2C2A36B71E33D5C6009A65B8 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C2A36B61E33D5C6009A65B8 /* Config.plist */; };
@@ -15,14 +17,14 @@
 		2C2A36BE1E33EB89009A65B8 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A36BD1E33EB89009A65B8 /* APIManager.m */; };
 		2CEAA8481E06C992003FC4FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA8471E06C992003FC4FF /* main.m */; };
 		2CEAA84B1E06C992003FC4FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA84A1E06C992003FC4FF /* AppDelegate.m */; };
-		2CEAA84E1E06C992003FC4FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA84D1E06C992003FC4FF /* ViewController.m */; };
 		2CEAA8511E06C992003FC4FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CEAA84F1E06C992003FC4FF /* Main.storyboard */; };
 		2CEAA8531E06C992003FC4FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CEAA8521E06C992003FC4FF /* Assets.xcassets */; };
 		2CEAA8561E06C992003FC4FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CEAA8541E06C992003FC4FF /* LaunchScreen.storyboard */; };
 		2CEAA8611E06C992003FC4FF /* CCIP_iOS_BuenoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA8601E06C992003FC4FF /* CCIP_iOS_BuenoTests.m */; };
 		2CEAA86C1E06C992003FC4FF /* CCIP_iOS_BuenoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAA86B1E06C992003FC4FF /* CCIP_iOS_BuenoUITests.m */; };
-		5ED7788DE834941D46255AC3 /* libPods-CCIP-iOS-Bueno.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A62591ECDBA28B9C6A398A8E /* libPods-CCIP-iOS-Bueno.a */; };
-		803865E335626E8DA31F359A /* libPods-CCIP-iOS-BuenoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5643BEB453059EC2D0A1CF0 /* libPods-CCIP-iOS-BuenoTests.a */; };
+		E0205CF5940D44D346AF10AD /* libPods-CCIP-iOS-Bueno.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 858772F3ACE39F0DD5A8D31F /* libPods-CCIP-iOS-Bueno.a */; };
+		F0EE64C2610FB5B997AE7E1D /* libPods-CCIP-iOS-BuenoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA017273E4957124B41EBF /* libPods-CCIP-iOS-BuenoUITests.a */; };
+		FF3E39A52EA6288E280A863D /* libPods-CCIP-iOS-BuenoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 143A23B10D3DCF3DB0794B1B /* libPods-CCIP-iOS-BuenoTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		143A23B10D3DCF3DB0794B1B /* libPods-CCIP-iOS-BuenoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-BuenoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A3B571BBE32C0D2CA60D4FF /* Pods-CCIP-iOS-Bueno.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-Bueno.release.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-Bueno/Pods-CCIP-iOS-Bueno.release.xcconfig"; sourceTree = "<group>"; };
+		2C17144B1E3436A7006BC2B4 /* TokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TokenField.h; path = ViewControllers/Redeem/TokenField.h; sourceTree = "<group>"; };
+		2C17144C1E3436A7006BC2B4 /* TokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TokenField.m; path = ViewControllers/Redeem/TokenField.m; sourceTree = "<group>"; };
+		2C17144E1E3436C8006BC2B4 /* RedeemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RedeemViewController.h; path = ViewControllers/Redeem/RedeemViewController.h; sourceTree = "<group>"; };
+		2C17144F1E3436C8006BC2B4 /* RedeemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RedeemViewController.m; path = ViewControllers/Redeem/RedeemViewController.m; sourceTree = "<group>"; };
+		2C1714511E3436E1006BC2B4 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinViewController.h; path = ViewControllers/CheckinViewController.h; sourceTree = "<group>"; };
+		2C1714521E3436E1006BC2B4 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinViewController.m; path = ViewControllers/CheckinViewController.m; sourceTree = "<group>"; };
 		2C2A36A91E33BE7F009A65B8 /* Attendee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attendee.h; path = DataModel/Attendee.h; sourceTree = "<group>"; };
 		2C2A36AA1E33BE7F009A65B8 /* Attendee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Attendee.m; path = DataModel/Attendee.m; sourceTree = "<group>"; };
 		2C2A36AC1E33C19E009A65B8 /* Scenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenario.h; path = DataModel/Scenario.h; sourceTree = "<group>"; };
@@ -57,8 +66,6 @@
 		2CEAA8471E06C992003FC4FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2CEAA8491E06C992003FC4FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CEAA84A1E06C992003FC4FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2CEAA84C1E06C992003FC4FF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2CEAA84D1E06C992003FC4FF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2CEAA8501E06C992003FC4FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CEAA8521E06C992003FC4FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CEAA8551E06C992003FC4FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,13 +77,12 @@
 		2CEAA86B1E06C992003FC4FF /* CCIP_iOS_BuenoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCIP_iOS_BuenoUITests.m; sourceTree = "<group>"; };
 		2CEAA86D1E06C992003FC4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EC3CDCA54BAAC38A4CB24AC /* Pods-CCIP-iOS-BuenoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-BuenoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-BuenoUITests/Pods-CCIP-iOS-BuenoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		858772F3ACE39F0DD5A8D31F /* libPods-CCIP-iOS-Bueno.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-Bueno.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86FA026BB23A54BE5790C5A4 /* Pods-CCIP-iOS-BuenoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-BuenoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-BuenoUITests/Pods-CCIP-iOS-BuenoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		881B03198A2F962B50DC2BF9 /* libPods-CCIP-iOS-BuenoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-BuenoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE7F6F8AE6E34D4BEDB8280 /* Pods-CCIP-iOS-BuenoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-BuenoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-BuenoTests/Pods-CCIP-iOS-BuenoTests.release.xcconfig"; sourceTree = "<group>"; };
-		A62591ECDBA28B9C6A398A8E /* libPods-CCIP-iOS-Bueno.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-Bueno.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97EA017273E4957124B41EBF /* libPods-CCIP-iOS-BuenoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-BuenoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8BB8B8DF3B126E265FE3336 /* Pods-CCIP-iOS-BuenoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-BuenoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-BuenoTests/Pods-CCIP-iOS-BuenoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDBD99694593583A6BDC3A49 /* Pods-CCIP-iOS-Bueno.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCIP-iOS-Bueno.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CCIP-iOS-Bueno/Pods-CCIP-iOS-Bueno.debug.xcconfig"; sourceTree = "<group>"; };
-		F5643BEB453059EC2D0A1CF0 /* libPods-CCIP-iOS-BuenoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CCIP-iOS-BuenoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ED7788DE834941D46255AC3 /* libPods-CCIP-iOS-Bueno.a in Frameworks */,
+				E0205CF5940D44D346AF10AD /* libPods-CCIP-iOS-Bueno.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				803865E335626E8DA31F359A /* libPods-CCIP-iOS-BuenoTests.a in Frameworks */,
+				FF3E39A52EA6288E280A863D /* libPods-CCIP-iOS-BuenoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				188D21F3B5470BD9D683DF1B /* libPods-CCIP-iOS-BuenoUITests.a in Frameworks */,
+				F0EE64C2610FB5B997AE7E1D /* libPods-CCIP-iOS-BuenoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +142,35 @@
 			name = Singletons;
 			sourceTree = "<group>";
 		};
+		2C2A36BF1E34097B009A65B8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C2A36C71E343019009A65B8 /* Checkin */,
+				2C2A36C61E34300E009A65B8 /* Redeem */,
+				2C1714511E3436E1006BC2B4 /* CheckinViewController.h */,
+				2C1714521E3436E1006BC2B4 /* CheckinViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2C2A36C61E34300E009A65B8 /* Redeem */ = {
+			isa = PBXGroup;
+			children = (
+				2C17144B1E3436A7006BC2B4 /* TokenField.h */,
+				2C17144C1E3436A7006BC2B4 /* TokenField.m */,
+				2C17144E1E3436C8006BC2B4 /* RedeemViewController.h */,
+				2C17144F1E3436C8006BC2B4 /* RedeemViewController.m */,
+			);
+			name = Redeem;
+			sourceTree = "<group>";
+		};
+		2C2A36C71E343019009A65B8 /* Checkin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Checkin;
+			sourceTree = "<group>";
+		};
 		2CEAA83A1E06C992003FC4FF = {
 			isa = PBXGroup;
 			children = (
@@ -161,13 +196,12 @@
 		2CEAA8451E06C992003FC4FF /* CCIP-iOS-Bueno */ = {
 			isa = PBXGroup;
 			children = (
+				2C2A36BF1E34097B009A65B8 /* ViewControllers */,
 				2C2A36BB1E33EB59009A65B8 /* Singletons */,
 				2C2A36B31E33D4FC009A65B8 /* Resources */,
 				2C2A36A81E33BB52009A65B8 /* DataModel */,
 				2CEAA8491E06C992003FC4FF /* AppDelegate.h */,
 				2CEAA84A1E06C992003FC4FF /* AppDelegate.m */,
-				2CEAA84C1E06C992003FC4FF /* ViewController.h */,
-				2CEAA84D1E06C992003FC4FF /* ViewController.m */,
 				2CEAA84F1E06C992003FC4FF /* Main.storyboard */,
 				2CEAA8521E06C992003FC4FF /* Assets.xcassets */,
 				2CEAA8541E06C992003FC4FF /* LaunchScreen.storyboard */,
@@ -207,9 +241,9 @@
 		92BBD3D57E2173B97A12136B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A62591ECDBA28B9C6A398A8E /* libPods-CCIP-iOS-Bueno.a */,
-				F5643BEB453059EC2D0A1CF0 /* libPods-CCIP-iOS-BuenoTests.a */,
-				881B03198A2F962B50DC2BF9 /* libPods-CCIP-iOS-BuenoUITests.a */,
+				858772F3ACE39F0DD5A8D31F /* libPods-CCIP-iOS-Bueno.a */,
+				143A23B10D3DCF3DB0794B1B /* libPods-CCIP-iOS-BuenoTests.a */,
+				97EA017273E4957124B41EBF /* libPods-CCIP-iOS-BuenoUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -511,12 +545,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CEAA84E1E06C992003FC4FF /* ViewController.m in Sources */,
+				2C1714501E3436C8006BC2B4 /* RedeemViewController.m in Sources */,
+				2C1714531E3436E1006BC2B4 /* CheckinViewController.m in Sources */,
 				2C2A36AE1E33C19E009A65B8 /* Scenario.m in Sources */,
 				2CEAA84B1E06C992003FC4FF /* AppDelegate.m in Sources */,
 				2CEAA8481E06C992003FC4FF /* main.m in Sources */,
 				2C2A36BE1E33EB89009A65B8 /* APIManager.m in Sources */,
 				2C2A36BA1E33EB50009A65B8 /* FileManager.m in Sources */,
+				2C17144D1E3436A7006BC2B4 /* TokenField.m in Sources */,
 				2C2A36AB1E33BE7F009A65B8 /* Attendee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

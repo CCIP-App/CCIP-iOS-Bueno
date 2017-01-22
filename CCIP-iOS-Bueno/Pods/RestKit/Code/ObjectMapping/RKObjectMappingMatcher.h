@@ -52,8 +52,7 @@
  Creates and returns a key path matcher object with a given key path, and a map of expected values to associated RKObjectMapping objects that applies in the event of a positive match with its associated value.  This method can evaluate the keyPath once
  
  @param keyPath The key path to obtain the comparison value from the object being matched via `valueForKeyPath:`.
- @param expectedValue The value that is expected to be read from `keyPath` if there is a match.
- @param objectMapping The object mapping object that applies if the comparison value is equal to the expected value.
+ @param valueToObjectMapping The object mapping object that applies if the comparison value is equal to the expected value.
  @return The receiver, initialized with the given key path and expected value map.
  */
 + (instancetype)matcherWithKeyPath:(NSString *)keyPath expectedValueMap:(NSDictionary *)valueToObjectMapping;

@@ -13,4 +13,6 @@
 
 + (instancetype)sharedManager;
 
+- (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion;
+
 @end
