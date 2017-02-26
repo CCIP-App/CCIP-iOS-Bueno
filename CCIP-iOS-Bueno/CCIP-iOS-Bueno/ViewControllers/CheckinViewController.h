@@ -10,4 +10,6 @@
 
 @interface CheckinViewController : UIViewController
 
+- (void)presentCheckinViewControllerWithAnimation:(BOOL)animate;
+
 @end

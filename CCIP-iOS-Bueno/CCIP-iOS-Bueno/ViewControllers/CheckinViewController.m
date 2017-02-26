@@ -7,6 +7,7 @@
 //
 
 #import "CheckinViewController.h"
+#import "APIManager.h"
 @interface CheckinViewController ()
 
 @end
@@ -15,9 +16,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if(![[APIManager sharedManager] haveAccessToken]) {
+        [self presentRedeemViewController];
+    } else {
+        [self presentCheckinViewControllerWithAnimation:NO];
+    }
+    [super viewWillAppear:animated];
+}
+
+- (void)presentRedeemViewController {
     UIViewController* redeemViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RedeemVC"];
     [self.view addSubview:redeemViewController.view];
     [self addChildViewController:redeemViewController];
+}
+
+- (void)presentCheckinViewControllerWithAnimation:(BOOL)animate {
+    UIViewController* checkinViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckinVC"];
+    if(animate){
+        [checkinViewController.view setAlpha:0.0];
+        [UIView animateWithDuration:0.5 animations:^{
+            [checkinViewController.view setAlpha:1.0];
+        }];
+    }
+    [self.view addSubview:checkinViewController.view];
+    [self addChildViewController:checkinViewController];
 }
 
 - (void)didReceiveMemoryWarning {

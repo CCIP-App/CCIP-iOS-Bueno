@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface RedeemViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *infoWrapperView;
+@property (weak, nonatomic) IBOutlet UIView *qrWarpperView;
+@property (weak, nonatomic) IBOutlet UIView *qrPreviewView;
+
+- (IBAction)startButtonPressed:(id)sender;
 
 @end

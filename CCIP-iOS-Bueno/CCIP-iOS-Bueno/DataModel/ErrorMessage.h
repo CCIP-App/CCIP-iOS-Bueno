@@ -10,4 +10,6 @@
 
 @interface ErrorMessage : NSObject
 
+@property (nonatomic, copy) NSString* message;
+
 @end

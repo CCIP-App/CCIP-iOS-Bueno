@@ -7,6 +7,11 @@ target 'CCIP-iOS-Bueno' do
 
   # Pods for CCIP-iOS-Bueno
   pod 'RestKit', '~> 0.27'
+  pod 'FontAwesomeKit', '~> 2.2.0'
+  pod 'UICKeyChainStore'
+  pod 'Firebase/DynamicLinks'
+  pod "MTBBarcodeScanner"
+  pod 'MBProgressHUD', '~> 1.0.0'
 
   target 'CCIP-iOS-BuenoTests' do
     inherit! :search_paths

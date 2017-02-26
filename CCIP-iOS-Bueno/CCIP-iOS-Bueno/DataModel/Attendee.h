@@ -16,5 +16,6 @@
 @property (nonatomic) NSDictionary* attr;
 @property (nonatomic) NSNumber* status;
 @property (nonatomic) NSArray* scenarios;
+//@property (nonatomic, copy) NSString* type;
 
 @end

@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>BaseUrl</key>
-	<string>http://ccip.sitcon.org/</string>
+	<string>https://ccip.sitcon.org</string>
 </dict>
 </plist>

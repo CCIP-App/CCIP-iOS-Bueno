@@ -9,10 +9,14 @@
 #import "APIManager.h"
 #import "FileManager.h"
 #import "RestKit.h"
+#import <UICKeyChainStore/UICKeyChainStore.h>
+
 @interface APIManager()
 
 @property (nonatomic) NSDictionary* config;
 @property (nonatomic) RKObjectMapping* attendeeMapping;
+@property (nonatomic) RKObjectMapping* messageMapping;
+@property (strong, atomic) Attendee* attendee;
 
 @end
 
@@ -66,6 +70,10 @@
                                                           @"status": @"status"
                                                           }];
     [self.attendeeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"scenarios" toKeyPath:@"scenarios" withMapping:scenarioMapping]];
+    self.messageMapping = [RKObjectMapping mappingForClass:[ErrorMessage class]];
+    [self.messageMapping addAttributeMappingsFromDictionary:@{
+                                                              @"message": @"message"
+                                                              }];
 }
 
 - (void)configureRequestDescriptors {
@@ -73,15 +81,62 @@
 }
 
 - (void)configureResponseDescriptors {
-    RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"/status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor* errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.messageMapping method:RKRequestMethodGET pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
     [[RKObjectManager sharedManager] addResponseDescriptor:attendeeResponseDescriptor];
+    [[RKObjectManager sharedManager] addResponseDescriptor:errorResponseDescriptor];
 }
 
-- (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion {
-    [[RKObjectManager sharedManager] getObject:nil path:@"status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+- (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion Failure:(void (^)(ErrorMessage *))failure{
+    [[RKObjectManager sharedManager] getObject:nil path:@"/status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        
         completion((Attendee*)[mappingResult firstObject]);
-    } failure:nil];
+        
+    } failure:^(RKObjectRequestOperation *operation,NSError* error) {
+        failure((ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject]);
+    }];
 }
+
+
+- (BOOL)haveAccessToken {
+    return ([[self accessToken] length] > 0) ? YES : NO;
+}
+
+- (void)setAccessToken:(NSString *)accessToken {
+    [UICKeyChainStore removeItemForKey:@"token"];
+    [UICKeyChainStore setString:accessToken
+                         forKey:@"token"];
+}
+
+- (void)setAccessToken:(NSString *)accessToken Completion:(void (^)(Attendee *))completion Failure:(void (^)(ErrorMessage *))failure {
+    [[APIManager sharedManager] requestAttendeeStatusWithToken:accessToken Completion:^(Attendee *attendee) {
+        [self setAccessToken:accessToken];
+        self.attendee = attendee;
+        completion(attendee);
+    } Failure:^(ErrorMessage *errorMessage) {
+        failure(errorMessage);
+    }];
+    //[[AppDelegate appDelegate].oneSignal sendTag:@"token" value:accessToken];
+    //[[AppDelegate appDelegate] setDefaultShortcutItems];
+}
+
+- (void)resetAccessToken {
+    self.attendee = nil;
+    [UICKeyChainStore setString:@""
+                         forKey:@"token"];
+}
+
+- (NSString *)accessToken {
+    return [UICKeyChainStore stringForKey:@"token"];
+}
+
+- (Attendee *)getAttendee {
+    if(self.attendee)
+        return self.attendee;
+    else
+        return NULL;
+}
+
 
 
 @end

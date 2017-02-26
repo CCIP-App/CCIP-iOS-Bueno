@@ -5,17 +5,21 @@
 //  Created by 高宜誠 on 2016/12/18.
 //  Copyright © 2016年 高宜誠. All rights reserved.
 //
-
 #import "AppDelegate.h"
-
+#import "APIManager.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+#pragma mark AppDelegate
++ (AppDelegate *)appDelegate {
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
-
+#pragma mark Application Event
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[APIManager sharedManager] resetAccessToken];
     // Override point for customization after application launch.
     return YES;
 }

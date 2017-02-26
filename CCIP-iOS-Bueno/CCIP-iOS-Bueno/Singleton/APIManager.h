@@ -8,11 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "Attendee.h"
+#import "ErrorMessage.h"
 
 @interface APIManager : NSObject
 
-+ (instancetype)sharedManager;
++ (_Nonnull instancetype)sharedManager;
 
-- (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion;
+- (void)requestAttendeeStatusWithToken:(NSString* _Nonnull)token Completion:(void (^ _Nullable)(Attendee* _Nonnull attendee))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull message))failure;
+
+- (BOOL)haveAccessToken;
+- (void)setAccessToken:(NSString * _Null_unspecified)accessToken Completion:(void (^ _Nullable)(Attendee* _Nonnull attendee))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
+- (void)resetAccessToken;
+- (NSString * _Null_unspecified)accessToken;
+
+- (Attendee * _Null_unspecified)getAttendee;
 
 @end
