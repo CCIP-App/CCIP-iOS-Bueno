@@ -34,6 +34,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.qrScanner stopScanning];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -99,7 +104,7 @@
         }];
     } Failure:^(ErrorMessage *errorMessage) {
         [hud hideAnimated:YES];
-        self.errorMessageViewController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Token Error", nil) message:NSLocalizedString(errorMessage.message, nil) preferredStyle:UIAlertControllerStyleAlert];
+        self.errorMessageViewController = [UIAlertController alertControllerWithTitle:NSLocalizedString(errorMessage.title, nil) message:NSLocalizedString(errorMessage.message, nil) preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {}];
         

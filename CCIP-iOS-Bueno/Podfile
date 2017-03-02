@@ -12,6 +12,8 @@ target 'CCIP-iOS-Bueno' do
   pod 'Firebase/DynamicLinks'
   pod "MTBBarcodeScanner"
   pod 'MBProgressHUD', '~> 1.0.0'
+  pod 'PINRemoteImage', '3.0.0-beta.8'
+  pod 'ICViewPager', :git => 'https://github.com/FrankWu100/ICViewPager'
 
   target 'CCIP-iOS-BuenoTests' do
     inherit! :search_paths

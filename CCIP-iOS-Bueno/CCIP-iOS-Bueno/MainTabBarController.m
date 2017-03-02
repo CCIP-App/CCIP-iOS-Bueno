@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -27,7 +28,7 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if([viewController class] == [TelegramViewController class]) {
-        NSURL *telegramURL = [NSURL URLWithString:@"telegram://SITCONgeneral"];
+        NSURL *telegramURL = [NSURL URLWithString:@"tg://resolve?domain=SITCONgeneral"];
         if(![[UIApplication sharedApplication] canOpenURL:telegramURL])
             telegramURL = [NSURL URLWithString:@"https://telegram.me/SITCONgeneral"];
         [[UIApplication sharedApplication] openURL:telegramURL options:@{} completionHandler:nil];

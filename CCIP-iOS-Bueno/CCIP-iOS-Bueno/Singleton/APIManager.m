@@ -10,13 +10,17 @@
 #import "FileManager.h"
 #import "RestKit.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
-
+#import "FileManager.h"
 @interface APIManager()
 
 @property (nonatomic) NSDictionary* config;
 @property (nonatomic) RKObjectMapping* attendeeMapping;
 @property (nonatomic) RKObjectMapping* messageMapping;
+@property (nonatomic) RKObjectMapping* submissionMapping;
 @property (strong, atomic) Attendee* attendee;
+@property (strong, nonatomic) RKObjectManager* sitconWebPageManager;
+@property (strong, nonatomic) RKObjectManager* ccipAPIManager;
+@property (strong, nonatomic) NSArray* submissions;
 
 @end
 
@@ -45,8 +49,8 @@
 
 - (void)configureObjectManager {
     NSURL* baseUrl = [NSURL URLWithString:[self.config objectForKey:@"BaseUrl"]];
-    [RKObjectManager setSharedManager:[RKObjectManager managerWithBaseURL:baseUrl]];
-    [[[RKObjectManager sharedManager] HTTPClient] setAuthorizationHeaderWithToken:@""];
+    self.ccipAPIManager = [RKObjectManager managerWithBaseURL:baseUrl];
+    self.sitconWebPageManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://sitcon.org"]];
 }
 
 - (void)configureObjectMappings {
@@ -59,7 +63,8 @@
                                                           @"expire_time": @"expireTime",
                                                           @"available_time": @"availableTime",
                                                           @"attr": @"attr",
-                                                          @"order": @"order"
+                                                          @"order": @"order",
+                                                          @"type": @"type"
                                                           }];
 
     self.attendeeMapping = [RKObjectMapping mappingForClass:[Attendee class]];
@@ -74,6 +79,23 @@
     [self.messageMapping addAttributeMappingsFromDictionary:@{
                                                               @"message": @"message"
                                                               }];
+    
+    RKObjectMapping* speakerMapping = [RKObjectMapping mappingForClass:[Speaker class]];
+    [speakerMapping addAttributeMappingsFromDictionary:@{
+                                                         @"name": @"name",
+                                                         @"avatar": @"avatar",
+                                                         @"bio": @"bio"
+                                                         }];
+    self.submissionMapping = [RKObjectMapping mappingForClass:[Submission class]];
+    [self.submissionMapping addAttributeMappingsFromDictionary:@{
+                                                                 @"start": @"start",
+                                                                 @"end": @"end",
+                                                                 @"type": @"type",
+                                                                 @"room": @"room",
+                                                                 @"subject": @"subject",
+                                                                 @"summary": @"summary"
+                                                                 }];
+    [self.submissionMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"speaker" toKeyPath:@"speaker" withMapping:speakerMapping]];
 }
 
 - (void)configureRequestDescriptors {
@@ -83,17 +105,30 @@
 - (void)configureResponseDescriptors {
     RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"/status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     RKResponseDescriptor* errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.messageMapping method:RKRequestMethodGET pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
-    [[RKObjectManager sharedManager] addResponseDescriptor:attendeeResponseDescriptor];
-    [[RKObjectManager sharedManager] addResponseDescriptor:errorResponseDescriptor];
+    RKResponseDescriptor* submissionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.submissionMapping method:RKRequestMethodGET pathPattern:@"/2017/submissions.json" keyPath:@"" statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [self.ccipAPIManager addResponseDescriptor:attendeeResponseDescriptor];
+    [self.ccipAPIManager addResponseDescriptor:errorResponseDescriptor];
+    [self.sitconWebPageManager addResponseDescriptor:submissionResponseDescriptor];
 }
 
 - (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion Failure:(void (^)(ErrorMessage *))failure{
-    [[RKObjectManager sharedManager] getObject:nil path:@"/status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+    [self.ccipAPIManager getObject:nil path:@"/status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         
         completion((Attendee*)[mappingResult firstObject]);
         
     } failure:^(RKObjectRequestOperation *operation,NSError* error) {
-        failure((ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject]);
+        
+        if([error code] == 1004) {
+            ErrorMessage* errorMessage = (ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject];
+            errorMessage.title = @"token error";
+            failure(errorMessage);
+        } else {
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            failure(errorMessage);
+        }
     }];
 }
 
@@ -109,7 +144,7 @@
 }
 
 - (void)setAccessToken:(NSString *)accessToken Completion:(void (^)(Attendee *))completion Failure:(void (^)(ErrorMessage *))failure {
-    [[APIManager sharedManager] requestAttendeeStatusWithToken:accessToken Completion:^(Attendee *attendee) {
+    [self requestAttendeeStatusWithToken:accessToken Completion:^(Attendee *attendee) {
         [self setAccessToken:accessToken];
         self.attendee = attendee;
         completion(attendee);
@@ -137,6 +172,36 @@
         return NULL;
 }
 
+- (void)reloadSubmissions {
+    self.submissions = NULL;
+    [[FileManager sharedManager] cleanSubmissions];
+}
 
+- (void)requestSubmissionWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull submissions))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure {
+    if(self.submissions) {
+        completion(self.submissions);
+        return;
+    }
+    self.submissions = [[FileManager sharedManager] getSubmissions];
+    if(self.submissions) {
+        completion(self.submissions);
+        return;
+    }
+    
+    [self.sitconWebPageManager getObject:nil path:@"/2017/submissions.json" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.submissions = [mappingResult array];
+        [[FileManager sharedManager] saveSubmissions:self.submissions];
+        if(completion != NULL)
+            completion([mappingResult array]);
+        
+    } failure:^(RKObjectRequestOperation *operation,NSError* error) {
+        ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+        errorMessage.title = @"";
+        errorMessage.message = [error localizedDescription];
+        failure(errorMessage);
+        if(failure != NULL)
+            failure(errorMessage);
+    }];
+}
 
 @end

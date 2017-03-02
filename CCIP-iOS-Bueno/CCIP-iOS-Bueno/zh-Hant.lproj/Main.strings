@@ -1,24 +1,16 @@
 
-/* Class = "UINavigationItem"; title = "SITCON"; ObjectID = "9Hp-Sf-DCi"; */
-"9Hp-Sf-DCi.title" = "SITCON";
-
 /* Class = "UITabBarItem"; title = "報到"; ObjectID = "Bv7-XK-545"; */
 "Bv7-XK-545.title" = "報到";
 
-/* Class = "UIButton"; normalTitle = "REDEEM"; ObjectID = "C2y-3R-SfY"; */
-"C2y-3R-SfY.normalTitle" = "REDEEM";
 
 /* Class = "UITabBarItem"; title = "IRC"; ObjectID = "Ot5-IO-guZ"; */
-"Ot5-IO-guZ.title" = "IRC";
+"Ot5-IO-guZ.title" = "Telegram";
 
 /* Class = "UITextView"; text = "Please reference your attendee detail information  and your will found your access token.\n\nPlease copy and paste the token into next field or click the token link in the reference mail."; ObjectID = "Ts6-60-eh7"; */
 "Ts6-60-eh7.text" = "Please reference your attendee detail information  and your will found your access token.\n\nPlease copy and paste the token into next field or click the token link in the reference mail.";
 
 /* Class = "UITabBarItem"; title = "議程"; ObjectID = "ndB-WS-z45"; */
 "ndB-WS-z45.title" = "議程";
-
-/* Class = "UINavigationItem"; title = "Title"; ObjectID = "pSS-sG-EGF"; */
-"pSS-sG-EGF.title" = "Title";
 
 /* Class = "UITabBarItem"; title = "大會訊息"; ObjectID = "zkX-P8-bdO"; */
 "zkX-P8-bdO.title" = "大會訊息";

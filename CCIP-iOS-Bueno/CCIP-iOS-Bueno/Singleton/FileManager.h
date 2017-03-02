@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Submission.h"
 @interface FileManager : NSObject
 
 + (instancetype)sharedManager;
 
 - (NSDictionary *)getConfig;
+
+- (void)saveSubmissions:(NSArray*)submissions;
+- (NSArray*)getSubmissions;
+- (void)cleanSubmissions;
 
 @end

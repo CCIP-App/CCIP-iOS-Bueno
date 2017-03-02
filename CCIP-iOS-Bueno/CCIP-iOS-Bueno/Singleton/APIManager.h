@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Attendee.h"
 #import "ErrorMessage.h"
+#import "Submission.h"
 
 @interface APIManager : NSObject
 
@@ -22,5 +23,8 @@
 - (NSString * _Null_unspecified)accessToken;
 
 - (Attendee * _Null_unspecified)getAttendee;
+- (void)reloadSubmissions;
+- (void)requestSubmissionWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull submissions))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
+
 
 @end
