@@ -20,7 +20,7 @@
 #pragma mark Application Event
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[APIManager sharedManager] resetAccessToken];
+    //[[APIManager sharedManager] resetAccessToken];
     // Override point for customization after application launch.
     return YES;
 }

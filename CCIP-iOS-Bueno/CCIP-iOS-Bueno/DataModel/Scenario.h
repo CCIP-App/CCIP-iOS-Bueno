@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DisplayText.h"
 @interface Scenario : NSObject
 
 @property (nonatomic) NSString* scenarioId;
@@ -18,5 +18,6 @@
 @property (nonatomic) NSDate* availableTime;
 @property (nonatomic) NSDictionary* attr;
 @property (nonatomic) NSNumber* order;
+@property (nonatomic) DisplayText* display;
 
 @end

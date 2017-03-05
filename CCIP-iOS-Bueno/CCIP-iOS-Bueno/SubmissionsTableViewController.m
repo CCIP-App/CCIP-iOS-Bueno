@@ -72,7 +72,6 @@
     
     [self setTableViewUI];
     [self setTimeFormater];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.animationType = MBProgressHUDAnimationFade;

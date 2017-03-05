@@ -7,7 +7,6 @@
 //
 
 #import "Scenario.h"
-
 @implementation Scenario
 
 @end

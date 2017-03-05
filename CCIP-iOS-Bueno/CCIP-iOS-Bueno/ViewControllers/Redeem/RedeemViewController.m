@@ -105,7 +105,7 @@
     } Failure:^(ErrorMessage *errorMessage) {
         [hud hideAnimated:YES];
         self.errorMessageViewController = [UIAlertController alertControllerWithTitle:NSLocalizedString(errorMessage.title, nil) message:NSLocalizedString(errorMessage.message, nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {}];
         
         [self.errorMessageViewController addAction:defaultAction];

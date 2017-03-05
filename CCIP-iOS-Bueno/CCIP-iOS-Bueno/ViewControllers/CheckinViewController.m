@@ -10,6 +10,8 @@
 #import "APIManager.h"
 @interface CheckinViewController ()
 
+@property (strong, nonatomic) UIViewController* checkinViewController;
+
 @end
 
 @implementation CheckinViewController
@@ -34,15 +36,16 @@
 }
 
 - (void)presentCheckinViewControllerWithAnimation:(BOOL)animate {
-    UIViewController* checkinViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckinVC"];
+    if(!self.checkinViewController)
+        self.checkinViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CheckinVC"];
     if(animate){
-        [checkinViewController.view setAlpha:0.0];
+        [self.checkinViewController.view setAlpha:0.0];
         [UIView animateWithDuration:0.5 animations:^{
-            [checkinViewController.view setAlpha:1.0];
+            [self.checkinViewController.view setAlpha:1.0];
         }];
     }
-    [self.view addSubview:checkinViewController.view];
-    [self addChildViewController:checkinViewController];
+    [self.view addSubview:self.checkinViewController.view];
+    [self addChildViewController:self.checkinViewController];
 }
 
 - (void)didReceiveMemoryWarning {

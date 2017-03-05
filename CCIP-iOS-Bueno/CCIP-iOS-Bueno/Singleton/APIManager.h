@@ -10,7 +10,7 @@
 #import "Attendee.h"
 #import "ErrorMessage.h"
 #import "Submission.h"
-
+#import "Announcement.h"
 @interface APIManager : NSObject
 
 + (_Nonnull instancetype)sharedManager;
@@ -26,5 +26,10 @@
 - (void)reloadSubmissions;
 - (void)requestSubmissionWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull submissions))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
 
+- (void)requestAnnouncementWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull announcements))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
+
+- (void)requestScenariosWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull scenarios))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
+
+- (NSArray *)availableScenarios;
 
 @end

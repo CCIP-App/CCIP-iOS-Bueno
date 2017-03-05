@@ -39,6 +39,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - iCarousel (1.8.3)
   - ICViewPager (1.5.1)
   - ISO8601DateFormatterValueTransformer (0.6.1):
     - RKValueTransformers (~> 1.1.0)
@@ -88,6 +89,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/DynamicLinks
   - FontAwesomeKit (~> 2.2.0)
+  - iCarousel
   - ICViewPager (from `https://github.com/FrankWu100/ICViewPager`)
   - MBProgressHUD (~> 1.0.0)
   - MTBBarcodeScanner
@@ -113,6 +115,7 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   ICViewPager: c1278b67eceac7252d48252829c3c703285dfb76
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -126,6 +129,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-PODFILE CHECKSUM: a98e4ea664ed5d42cbd2458ad6b842a5fc39579d
+PODFILE CHECKSUM: ad40661e426bee6d2c42bb08917acbf1aafd912e
 
 COCOAPODS: 1.1.1

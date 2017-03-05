@@ -11,16 +11,20 @@
 #import "RestKit.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import "FileManager.h"
+#import "Announcement.h"
 @interface APIManager()
 
 @property (nonatomic) NSDictionary* config;
 @property (nonatomic) RKObjectMapping* attendeeMapping;
 @property (nonatomic) RKObjectMapping* messageMapping;
 @property (nonatomic) RKObjectMapping* submissionMapping;
+@property (nonatomic) RKObjectMapping* announcementMapping;
+
 @property (strong, atomic) Attendee* attendee;
 @property (strong, nonatomic) RKObjectManager* sitconWebPageManager;
 @property (strong, nonatomic) RKObjectManager* ccipAPIManager;
 @property (strong, nonatomic) NSArray* submissions;
+@property (nonatomic) NSArray* announcements;
 
 @end
 
@@ -66,7 +70,12 @@
                                                           @"order": @"order",
                                                           @"type": @"type"
                                                           }];
-
+    RKObjectMapping* displayMapping = [RKObjectMapping mappingForClass:[DisplayText class]];
+    [displayMapping addAttributeMappingsFromDictionary:@{
+                                                         @"en-US": @"en",
+                                                         @"zh-TW": @"zh"
+                                                         }];
+    [scenarioMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"display_text" toKeyPath:@"display" withMapping:displayMapping]];
     self.attendeeMapping = [RKObjectMapping mappingForClass:[Attendee class]];
     [self.attendeeMapping addAttributeMappingsFromDictionary:@{
                                                           @"token": @"token",
@@ -96,6 +105,14 @@
                                                                  @"summary": @"summary"
                                                                  }];
     [self.submissionMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"speaker" toKeyPath:@"speaker" withMapping:speakerMapping]];
+    
+    self.announcementMapping = [RKObjectMapping mappingForClass:[Announcement class]];
+    [self.announcementMapping addAttributeMappingsFromDictionary:@{
+                                                                  @"msg_en": @"msg",
+                                                                  @"datetime": @"datetime",
+                                                                  @"uri": @"uri"
+                                                                  }];
+    
 }
 
 - (void)configureRequestDescriptors {
@@ -105,16 +122,18 @@
 - (void)configureResponseDescriptors {
     RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"/status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     RKResponseDescriptor* errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.messageMapping method:RKRequestMethodGET pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
-    RKResponseDescriptor* submissionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.submissionMapping method:RKRequestMethodGET pathPattern:@"/2017/submissions.json" keyPath:@"" statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor* submissionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.submissionMapping method:RKRequestMethodGET pathPattern:@"/2017/submissions.json" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    RKResponseDescriptor* announcementResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.announcementMapping method:RKRequestMethodGET pathPattern:@"/announcement" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
     [self.ccipAPIManager addResponseDescriptor:attendeeResponseDescriptor];
     [self.ccipAPIManager addResponseDescriptor:errorResponseDescriptor];
     [self.sitconWebPageManager addResponseDescriptor:submissionResponseDescriptor];
+    [self.ccipAPIManager addResponseDescriptor:announcementResponseDescriptor];
 }
 
 - (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion Failure:(void (^)(ErrorMessage *))failure{
     [self.ccipAPIManager getObject:nil path:@"/status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        
+        self.attendee = (Attendee*)[mappingResult firstObject];
         completion((Attendee*)[mappingResult firstObject]);
         
     } failure:^(RKObjectRequestOperation *operation,NSError* error) {
@@ -202,6 +221,47 @@
         if(failure != NULL)
             failure(errorMessage);
     }];
+}
+
+- (void)requestAnnouncementWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull announcemnets))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure {
+    if(self.announcements) {
+        completion(self.announcements);
+        return;
+    }
+    
+    [self.ccipAPIManager getObject:nil path:@"/announcement" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        self.announcements = [mappingResult array];
+        if(completion != NULL)
+            completion([mappingResult array]);
+        
+    } failure:^(RKObjectRequestOperation *operation,NSError* error) {
+        ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+        errorMessage.title = @"";
+        errorMessage.message = [error localizedDescription];
+        failure(errorMessage);
+        if(failure != NULL)
+            failure(errorMessage);
+    }];
+}
+
+- (void)requestScenariosWithCompletion:(void (^ _Nullable)(NSArray* _Nonnull scenarios))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure {
+    if (self.attendee) {
+        completion(self.attendee.scenarios);
+        return;
+    }
+    [self requestAttendeeStatusWithToken:[self accessToken] Completion:^(Attendee * _Nonnull attendee) {
+        completion(attendee.scenarios);
+    } Failure:^(ErrorMessage * _Nonnull message) {
+        if(failure != NULL)
+            failure(message);
+    }];
+}
+
+- (NSArray *)availableScenarios {
+    if(self.attendee) {
+        return self.attendee.scenarios;
+    }
+    return nil;
 }
 
 @end
