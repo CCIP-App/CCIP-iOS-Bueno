@@ -1,4 +1,5 @@
 PODS:
+  - CRToast (0.0.9)
   - Firebase/Core (3.14.0):
     - FirebaseAnalytics (= 3.7.0)
     - FirebaseCore (= 3.5.1)
@@ -45,6 +46,7 @@ PODS:
     - RKValueTransformers (~> 1.1.0)
   - MBProgressHUD (1.0.0)
   - MTBBarcodeScanner (5.0.0)
+  - OneSignal (2.3.7)
   - PINCache (3.0.1-beta.4):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.4)
     - PINCache/Core (= 3.0.1-beta.4)
@@ -87,12 +89,14 @@ PODS:
   - UICKeyChainStore (2.1.0)
 
 DEPENDENCIES:
+  - CRToast
   - Firebase/DynamicLinks
   - FontAwesomeKit (~> 2.2.0)
   - iCarousel
   - ICViewPager (from `https://github.com/FrankWu100/ICViewPager`)
   - MBProgressHUD (~> 1.0.0)
   - MTBBarcodeScanner
+  - OneSignal
   - PINRemoteImage (= 3.0.0-beta.8)
   - RestKit (~> 0.27)
   - UICKeyChainStore
@@ -107,6 +111,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/FrankWu100/ICViewPager
 
 SPEC CHECKSUMS:
+  CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
   Firebase: 85a581fb04e44f63ae9f4fbc8d6dabf4a4c18653
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
   FirebaseCore: 225d40532489835a034b8f4e2c9c87fbf4f615a2
@@ -120,6 +125,7 @@ SPEC CHECKSUMS:
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MTBBarcodeScanner: f7ac0087f2467ba73e4d429bb1bc2098fe11b09f
+  OneSignal: 95c86eec080b8c5e69b85d8ad21c4d38eed1b5a8
   PINCache: a89c8f609232afac77128557bd12c861844423d7
   PINOperation: ac23db44796d4a564ecf9b5ea7163510f579b71d
   PINRemoteImage: c4f9f16932840c597f32e69dd288e10e111a1929
@@ -129,6 +135,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-PODFILE CHECKSUM: ad40661e426bee6d2c42bb08917acbf1aafd912e
+PODFILE CHECKSUM: f94dc2fc97521c7a387ca799d425a55a169f9d1e
 
 COCOAPODS: 1.1.1

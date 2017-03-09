@@ -12,9 +12,9 @@
 #import <MBProgressHUD.h>
 #import "APIManager.h"
 #import "CheckinViewController.h"
+#import "NotificationManager.h"
 @interface RedeemViewController ()
 @property (strong, nonatomic) MTBBarcodeScanner *qrScanner;
-@property (strong, nonatomic) UIAlertController *errorMessageViewController;
 @end
 
 @implementation RedeemViewController
@@ -27,6 +27,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.qrWarpperView setAlpha:0.0];
+    [self.infoWrapperView setAlpha:1.0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,16 +106,49 @@
         }];
     } Failure:^(ErrorMessage *errorMessage) {
         [hud hideAnimated:YES];
-        self.errorMessageViewController = [UIAlertController alertControllerWithTitle:NSLocalizedString(errorMessage.title, nil) message:NSLocalizedString(errorMessage.message, nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-        
-        [self.errorMessageViewController addAction:defaultAction];
-        [self presentViewController:self.errorMessageViewController animated:YES completion:nil];
     }];
 }
 
 - (IBAction)startButtonPressed:(id)sender {
     [self requestCameraPermission];
 }
+
+- (IBAction)qrFilePick:(id)sender {
+    [self getImageFromLibrary];
+}
+
+#pragma mark QR Code from Camera Roll Library
+
+- (void)getImageFromLibrary {
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    [imagePicker setDelegate:self];
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    [self presentViewController:imagePicker
+                       animated:YES
+                     completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    
+    if ([mediaType isEqualToString:@"public.image"]) {
+        UIImage *srcImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy: CIDetectorAccuracyHigh }];
+        CIImage *image = [CIImage imageWithCGImage:srcImage.CGImage];
+        NSArray *features = [detector featuresInImage:image];
+        
+        CIQRCodeFeature *feature = [features firstObject];
+        
+        NSString *result = feature.messageString;
+        
+        if (result != nil) {
+            [self loadAttendeeWithAccessToken:result];
+        } else {
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"QRFileNotAvailableTitle", nil) Subtitle:NSLocalizedString(@"QRFileNotAvailableDesc", nil)];
+        }
+    }
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

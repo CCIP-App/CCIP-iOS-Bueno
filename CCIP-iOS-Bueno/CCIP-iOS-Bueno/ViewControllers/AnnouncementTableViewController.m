@@ -30,6 +30,11 @@
     [super viewDidLoad];
     [self setTableViewUI];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sitcon"]];
+    imageView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 28);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = imageView;
+    
     self.timeFormatter = [NSDateFormatter new];
     [self.timeFormatter setTimeZone:[NSTimeZone localTimeZone]];
     [self.timeFormatter setDateFormat:@"MM/dd HH:mm"];
@@ -59,12 +64,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if([self.announcements count]==0)
+        return 1;
     return [self.announcements count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnouncementTableViewCell *cell = (AnnouncementTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"AnnouncementCell" forIndexPath:indexPath];
+    
+    if([self.announcements count]==0) {
+        cell.announcement = [Announcement new];
+        cell.announcement.msg = NSLocalizedString(@"Oops! There is no message.", nil);
+        cell.msgLabel.text = cell.announcement.msg;
+        cell.timeLabel.text = @"";
+        return cell;
+    }
     cell.announcement = [self.announcements objectAtIndex:indexPath.row];
     cell.msgLabel.text = cell.announcement.msg;
     cell.timeLabel.text = [self.timeFormatter stringFromDate:cell.announcement.datetime];
@@ -73,6 +88,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([self.announcements count]==0) return;
     if(![[(Announcement*)[self.announcements objectAtIndex:indexPath.row] uri] isEqualToString:@""]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[(Announcement*)[self.announcements objectAtIndex:indexPath.row] uri]] options:@{} completionHandler:nil];
     }

@@ -15,6 +15,8 @@ target 'CCIP-iOS-Bueno' do
   pod 'PINRemoteImage', '3.0.0-beta.8'
   pod 'ICViewPager', :git => 'https://github.com/FrankWu100/ICViewPager'
   pod 'iCarousel'
+  pod 'CRToast'
+  pod 'OneSignal'
 
   target 'CCIP-iOS-BuenoTests' do
     inherit! :search_paths

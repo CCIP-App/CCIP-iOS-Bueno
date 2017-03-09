@@ -15,5 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *actionBtn;
 @property (strong, nonatomic) IBOutlet UILabel *availableLabel;
 @property (strong, nonatomic) IBOutlet CheckinCardView *cardView;
+@property (strong, nonatomic) NSTimer *timer;
+- (IBAction)actionBtnDown:(id)sender;
 
 @end

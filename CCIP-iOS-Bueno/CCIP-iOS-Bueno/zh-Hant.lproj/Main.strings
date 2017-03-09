@@ -1,16 +1,132 @@
 
-/* Class = "UITabBarItem"; title = "報到"; ObjectID = "Bv7-XK-545"; */
+/* Class = "UILabel"; text = "Forums"; ObjectID = "0C3-Fn-8hm"; */
+"0C3-Fn-8hm.text" = "論壇";
+
+/* Class = "UILabel"; text = "Message"; ObjectID = "0L0-ML-v5c"; */
+"0L0-ML-v5c.text" = "訊息";
+
+/* Class = "UILabel"; text = "Abstract"; ObjectID = "0se-fw-XgK"; */
+"0se-fw-XgK.text" = "摘要";
+
+/* Class = "UILabel"; text = "test the label change"; ObjectID = "2C8-lZ-HJh"; */
+"2C8-lZ-HJh.text" = "測試Label變化";
+
+/* Class = "UILabel"; text = "Scan QR Code"; ObjectID = "2oD-yW-trh"; */
+"2oD-yW-trh.text" = "掃描 QR Code";
+
+/* Class = "UINavigationItem"; title = "議程"; ObjectID = "52U-WX-IZZ"; */
+"52U-WX-IZZ.title" = "議程";
+
+/* Class = "UIBarButtonItem"; title = "返回"; ObjectID = "7zh-DS-wSE"; */
+"7zh-DS-wSE.title" = "返回";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9vQ-WZ-pZI"; */
+"9vQ-WZ-pZI.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Check in"; ObjectID = "Bv7-XK-545"; */
 "Bv7-XK-545.title" = "報到";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "CYc-KK-Low"; */
+"CYc-KK-Low.text" = "Label";
 
-/* Class = "UITabBarItem"; title = "IRC"; ObjectID = "Ot5-IO-guZ"; */
+/* Class = "UIButton"; normalTitle = "Retry"; ObjectID = "GHY-si-8G6"; */
+"GHY-si-8G6.normalTitle" = "重試";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IVP-Wo-sFX"; */
+"IVP-Wo-sFX.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Sponsored"; ObjectID = "JPK-nS-Cde"; */
+"JPK-nS-Cde.text" = "贊助商";
+
+/* Class = "UILabel"; text = "Open App Via Link"; ObjectID = "JRH-EU-6Nj"; */
+"JRH-EU-6Nj.text" = "經由連結打開程式";
+
+/* Class = "UILabel"; text = "SpeakerIntro"; ObjectID = "LTg-tO-Ta8"; */
+"LTg-tO-Ta8.text" = "講者介紹";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "M4H-3f-NkN"; */
+"M4H-3f-NkN.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Telegram"; ObjectID = "Ot5-IO-guZ"; */
 "Ot5-IO-guZ.title" = "Telegram";
 
-/* Class = "UITextView"; text = "Please reference your attendee detail information  and your will found your access token.\n\nPlease copy and paste the token into next field or click the token link in the reference mail."; ObjectID = "Ts6-60-eh7"; */
-"Ts6-60-eh7.text" = "Please reference your attendee detail information  and your will found your access token.\n\nPlease copy and paste the token into next field or click the token link in the reference mail.";
+/* Class = "UILabel"; text = "OR"; ObjectID = "RQc-ag-Wkd"; */
+"RQc-ag-Wkd.text" = "或";
 
-/* Class = "UITabBarItem"; title = "議程"; ObjectID = "ndB-WS-z45"; */
-"ndB-WS-z45.title" = "議程";
+/* Class = "UILabel"; text = "R0"; ObjectID = "RWj-Er-N8E"; */
+"RWj-Er-N8E.text" = "R0";
 
-/* Class = "UITabBarItem"; title = "大會訊息"; ObjectID = "zkX-P8-bdO"; */
-"zkX-P8-bdO.title" = "大會訊息";
+/* Class = "UILabel"; text = "08"; ObjectID = "RYc-F2-1kE"; */
+"RYc-F2-1kE.text" = "08";
+
+/* Class = "UILabel"; text = "Room"; ObjectID = "Sj6-WK-zK5"; */
+"Sj6-WK-zK5.text" = "會議室";
+
+/* Class = "UILabel"; text = "No Data"; ObjectID = "TyI-7S-OAI"; */
+"TyI-7S-OAI.text" = "No Data";
+
+/* Class = "UIButton"; normalTitle = "Open From Gallery"; ObjectID = "X4z-gx-8WM"; */
+"X4z-gx-8WM.normalTitle" = "從相簿打開";
+
+/* Class = "UILabel"; text = "Staff"; ObjectID = "Y8v-bU-9KK"; */
+"Y8v-bU-9KK.text" = "工作人員";
+
+/* Class = "UITabBarItem"; title = "Announcement"; ObjectID = "YuE-v7-KL9"; */
+"YuE-v7-KL9.title" = "大會公告";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "btG-c7-PHN"; */
+"btG-c7-PHN.text" = "Label";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "eyN-6L-tzK"; */
+"eyN-6L-tzK.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Puzzle"; ObjectID = "hpj-6j-m6u"; */
+"hpj-6j-m6u.text" = "程式碼拼圖";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "hvP-4d-rC1"; */
+"hvP-4d-rC1.text" = "時間";
+
+/* Class = "UINavigationItem"; title = "More"; ObjectID = "j3H-Om-6WZ"; */
+"j3H-Om-6WZ.title" = "更多";
+
+/* Class = "UITabBarItem"; title = "議程"; ObjectID = "jFd-Jf-3zZ"; */
+"jFd-Jf-3zZ.title" = "議程";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "kv9-8b-PJk"; */
+"kv9-8b-PJk.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "TIME"; ObjectID = "m7j-0j-L4C"; */
+"m7j-0j-L4C.text" = "TIME";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "mhh-wg-4Yr"; */
+"mhh-wg-4Yr.text" = "Label";
+
+/* Class = "UILabel"; text = "Ticket"; ObjectID = "mja-QY-QHO"; */
+"mja-QY-QHO.text" = "Ticket";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "oyy-Hd-Bck"; */
+"oyy-Hd-Bck.text" = "Label";
+
+/* Class = "UILabel"; text = "time"; ObjectID = "pke-Br-80C"; */
+"pke-Br-80C.text" = "time";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pnQ-RW-vFo"; */
+"pnQ-RW-vFo.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "rIH-O5-PrJ"; */
+"rIH-O5-PrJ.text" = "Label";
+
+/* Class = "UILabel"; text = "30"; ObjectID = "rOc-k9-FlY"; */
+"rOc-k9-FlY.text" = "30";
+
+/* Class = "UILabel"; text = "MSG"; ObjectID = "tOS-ag-ASx"; */
+"tOS-ag-ASx.text" = "MSG";
+
+/* Class = "UITabBarItem"; title = "議程"; ObjectID = "uKy-Px-Uyd"; */
+"uKy-Px-Uyd.title" = "議程";
+
+/* Class = "UILabel"; text = "QR Code"; ObjectID = "uac-Ja-Sof"; */
+"uac-Ja-Sof.text" = "QR Code";
+
+/* Class = "UILabel"; text = "Subject"; ObjectID = "xbh-jw-I4L"; */
+"xbh-jw-I4L.text" = "Subject";

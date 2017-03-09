@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RedeemViewController : UIViewController
+@interface RedeemViewController : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *infoWrapperView;
 @property (weak, nonatomic) IBOutlet UIView *qrWarpperView;
 @property (weak, nonatomic) IBOutlet UIView *qrPreviewView;
 
 - (IBAction)startButtonPressed:(id)sender;
+- (IBAction)qrFilePick:(id)sender;
 
 @end

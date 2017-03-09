@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CheckinViewController : UIViewController
+#import "APIManager.h"
+@interface CheckinViewController : UIViewController<APIManagerDelegate>
 
 - (void)presentCheckinViewControllerWithAnimation:(BOOL)animate;
 

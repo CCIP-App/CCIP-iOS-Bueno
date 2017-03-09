@@ -10,6 +10,7 @@
 #import "FileManager.h"
 #import "RestKit.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
+#import "NotificationManager.h"
 #import "FileManager.h"
 #import "Announcement.h"
 @interface APIManager()
@@ -20,7 +21,7 @@
 @property (nonatomic) RKObjectMapping* submissionMapping;
 @property (nonatomic) RKObjectMapping* announcementMapping;
 
-@property (strong, atomic) Attendee* attendee;
+@property (nonatomic, strong) Attendee* attendee;
 @property (strong, nonatomic) RKObjectManager* sitconWebPageManager;
 @property (strong, nonatomic) RKObjectManager* ccipAPIManager;
 @property (strong, nonatomic) NSArray* submissions;
@@ -39,14 +40,22 @@
     return sharedMyManager;
 }
 
+- (void)setAttendee:(Attendee *)attendee {
+    _attendee = attendee;
+    for (id<APIManagerDelegate> delegate in self.delegates) {
+        if([delegate respondsToSelector:@selector(attendeeStatusChange:)])
+            [delegate attendeeStatusChange:self.attendee];
+    }
+}
+
 - (instancetype)init {
     self = [super init];
     if(self) {
         self.config = [[FileManager sharedManager] getConfig];
         [self configureObjectManager];
         [self configureObjectMappings];
-        [self configureRequestDescriptors];
         [self configureResponseDescriptors];
+        self.delegates = [NSMutableArray new];
     }
     return self;
 }
@@ -81,7 +90,8 @@
                                                           @"token": @"token",
                                                           @"user_id": @"userId",
                                                           @"attr": @"attr",
-                                                          @"status": @"status"
+                                                          @"status": @"status",
+                                                          @"type": @"type"
                                                           }];
     [self.attendeeMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"scenarios" toKeyPath:@"scenarios" withMapping:scenarioMapping]];
     self.messageMapping = [RKObjectMapping mappingForClass:[ErrorMessage class]];
@@ -115,16 +125,13 @@
     
 }
 
-- (void)configureRequestDescriptors {
-    //[[RKObjectManager sharedManager] object]
-}
-
 - (void)configureResponseDescriptors {
     RKResponseDescriptor* attendeeResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"/status" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     RKResponseDescriptor* errorResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.messageMapping method:RKRequestMethodGET pathPattern:nil keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
     RKResponseDescriptor* submissionResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.submissionMapping method:RKRequestMethodGET pathPattern:@"/2017/submissions.json" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
     RKResponseDescriptor* announcementResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.announcementMapping method:RKRequestMethodGET pathPattern:@"/announcement" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
-    
+    RKResponseDescriptor* scenarioResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:self.attendeeMapping method:RKRequestMethodGET pathPattern:@"/use/:scenarioId" keyPath:nil statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    [self.ccipAPIManager addResponseDescriptor:scenarioResponseDescriptor];
     [self.ccipAPIManager addResponseDescriptor:attendeeResponseDescriptor];
     [self.ccipAPIManager addResponseDescriptor:errorResponseDescriptor];
     [self.sitconWebPageManager addResponseDescriptor:submissionResponseDescriptor];
@@ -133,20 +140,29 @@
 
 - (void)requestAttendeeStatusWithToken:(NSString*)token Completion:(void (^)(Attendee* attendee))completion Failure:(void (^)(ErrorMessage *))failure{
     [self.ccipAPIManager getObject:nil path:@"/status" parameters:@{@"token": token} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        
         self.attendee = (Attendee*)[mappingResult firstObject];
         completion((Attendee*)[mappingResult firstObject]);
         
     } failure:^(RKObjectRequestOperation *operation,NSError* error) {
-        
         if([error code] == 1004) {
             ErrorMessage* errorMessage = (ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject];
-            errorMessage.title = @"token error";
+            errorMessage.title = NSLocalizedString(@"token error", nil);
             failure(errorMessage);
+        } else if ([[[operation HTTPRequestOperation] response] statusCode] == 403){
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:NSLocalizedString(@"Please Use Wifi", nil)];
+            if(failure)
+                failure(errorMessage);
         } else {
             ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
             errorMessage.title = @"";
             errorMessage.message = [error localizedDescription];
-            failure(errorMessage);
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
+            if(failure)
+                failure(errorMessage);
         }
     }];
 }
@@ -165,19 +181,28 @@
 - (void)setAccessToken:(NSString *)accessToken Completion:(void (^)(Attendee *))completion Failure:(void (^)(ErrorMessage *))failure {
     [self requestAttendeeStatusWithToken:accessToken Completion:^(Attendee *attendee) {
         [self setAccessToken:accessToken];
+        [OneSignal sendTags:@{@"token":accessToken, @"type": attendee.type}];
         self.attendee = attendee;
+        for (id<APIManagerDelegate> delegate in self.delegates) {
+            if([delegate respondsToSelector:@selector(tokenHaveChangedWithAttendee:)])
+                [delegate tokenHaveChangedWithAttendee:attendee];
+        }
+        
         completion(attendee);
     } Failure:^(ErrorMessage *errorMessage) {
         failure(errorMessage);
     }];
-    //[[AppDelegate appDelegate].oneSignal sendTag:@"token" value:accessToken];
-    //[[AppDelegate appDelegate] setDefaultShortcutItems];
 }
 
 - (void)resetAccessToken {
     self.attendee = nil;
     [UICKeyChainStore setString:@""
                          forKey:@"token"];
+    [OneSignal sendTags:@{@"token":@""}];
+    for (id<APIManagerDelegate> delegate in self.delegates) {
+        if([delegate respondsToSelector:@selector(tokenHaveChangedWithAttendee:)])
+        [delegate tokenHaveChangedWithAttendee:nil];
+    }
 }
 
 - (NSString *)accessToken {
@@ -214,12 +239,26 @@
             completion([mappingResult array]);
         
     } failure:^(RKObjectRequestOperation *operation,NSError* error) {
-        ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
-        errorMessage.title = @"";
-        errorMessage.message = [error localizedDescription];
-        failure(errorMessage);
-        if(failure != NULL)
+        if([error code] == 1004) {
+            ErrorMessage* errorMessage = (ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject];
+            errorMessage.title = @"token error";
             failure(errorMessage);
+        } else if ([[[operation HTTPRequestOperation] response] statusCode] == 403){
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:NSLocalizedString(@"Please Use Wifi", nil)];
+            if(failure)
+                failure(errorMessage);
+        } else {
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
+            if(failure)
+                failure(errorMessage);
+        }
+
     }];
 }
 
@@ -235,12 +274,25 @@
             completion([mappingResult array]);
         
     } failure:^(RKObjectRequestOperation *operation,NSError* error) {
-        ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
-        errorMessage.title = @"";
-        errorMessage.message = [error localizedDescription];
-        failure(errorMessage);
-        if(failure != NULL)
+        if([error code] == 1004) {
+            ErrorMessage* errorMessage = (ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject];
+            errorMessage.title = @"token error";
             failure(errorMessage);
+        } else if ([[[operation HTTPRequestOperation] response] statusCode] == 403){
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:NSLocalizedString(@"Please Use Wifi", nil)];
+            if(failure)
+                failure(errorMessage);
+        } else {
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
+            if(failure)
+                failure(errorMessage);
+        }
     }];
 }
 
@@ -262,6 +314,39 @@
         return self.attendee.scenarios;
     }
     return nil;
+}
+
+- (void)useScenarioWithScenrio:(Scenario*)scenario Completion:(void (^)(Scenario * _Nonnull))completion Failure:(void (^)(ErrorMessage * _Nonnull))failure {
+    [self.ccipAPIManager getObject:nil path:[NSString stringWithFormat:@"/use/%@",scenario.scenarioId] parameters:@{@"token": [self accessToken]} success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+        Attendee* attendee = (Attendee*)[mappingResult firstObject];
+        for (Scenario* tmpScenario in attendee.scenarios) {
+            if ([tmpScenario.scenarioId isEqualToString:scenario.scenarioId]) {
+                completion(tmpScenario);
+            }
+        }
+        self.attendee = attendee;
+    } failure:^(RKObjectRequestOperation *operation,NSError* error) {
+        
+        if([error code] == 1004) {
+            ErrorMessage* errorMessage = (ErrorMessage*)[[[error userInfo] objectForKey:RKObjectMapperErrorObjectsKey] firstObject];
+            errorMessage.title = @"token error";
+            failure(errorMessage);
+        } else if ([[[operation HTTPRequestOperation] response] statusCode] == 403){
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:NSLocalizedString(@"Please Use Wifi", nil)];
+            if(failure)
+                failure(errorMessage);
+        } else {
+            ErrorMessage* errorMessage = [[ErrorMessage alloc] init];
+            errorMessage.title = @"";
+            errorMessage.message = [error localizedDescription];
+            [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
+            if(failure)
+                failure(errorMessage);
+        }
+    }];
 }
 
 @end

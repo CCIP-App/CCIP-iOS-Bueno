@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <iCarousel.h>
-@interface CheckinCardWarpperViewController : UIViewController<iCarouselDataSource, iCarouselDelegate>
+#import "APIManager.h"
+@interface CheckinCardWarpperViewController : UIViewController<iCarouselDataSource, iCarouselDelegate, APIManagerDelegate>
 @property (strong, nonatomic) IBOutlet iCarousel *cardWarpper;
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;
+- (IBAction)dataRetry:(id)sender;
+@property (strong, nonatomic) IBOutlet UIView *nodataView;
 
 @end

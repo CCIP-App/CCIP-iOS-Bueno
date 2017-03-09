@@ -7,3 +7,6 @@
 */
 "token error" = "Token Error";
 "invalid token" = "invalid token";
+
+"QRFileNotAvailableTitle" = "QR File Load Failed";
+"QRFileNotAvailableDesc" = "QR File Not Available";

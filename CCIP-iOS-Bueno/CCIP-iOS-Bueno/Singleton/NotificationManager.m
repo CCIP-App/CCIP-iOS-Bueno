@@ -31,14 +31,9 @@
     if (self) {
         self.notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         self.notificationCenter.delegate = self;
+        [[[APIManager sharedManager] delegates] addObject:self];
     }
     return self;
-}
-
-- (void)setupBlocks {
-    self.receiveNotificationSettings = ^(UNNotificationSettings * _Nonnull settings) {
-        
-    };
 }
 
 - (void)requestNotificationAuthorizationWithCompletion:(void (^)())completion {
@@ -60,10 +55,10 @@
         notificationContent.body = body;
         NSCalendar *gregorian = [[NSCalendar alloc]
                                  initWithCalendarIdentifier:NSCalendarIdentifierISO8601];
-        //NSDateComponents* fireDate = [gregorian components:(NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMonth|NSCalendarUnitMinute) fromDate:date];
+        NSDateComponents* fireDate = [gregorian components:(NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMonth|NSCalendarUnitMinute) fromDate:date];
         
         // demo test, after 10 secound
-        NSDateComponents* fireDate = [gregorian components:(NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMonth|NSCalendarUnitMinute|NSCalendarUnitSecond) fromDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        //NSDateComponents* fireDate = [gregorian components:(NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMonth|NSCalendarUnitMinute|NSCalendarUnitSecond) fromDate:[NSDate dateWithTimeIntervalSinceNow:3]];
         
         UNCalendarNotificationTrigger* notificationTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:fireDate repeats:NO];
         
@@ -90,6 +85,69 @@
         }
         completion(NO);
     }];
+}
+
+- (void)tokenHaveChangedWithAttendee:(Attendee *)attendee {
+    if(attendee) {
+        NSDictionary *options = @{
+                                  kCRToastTextKey : NSLocalizedString(@"Welocme", nil) ,
+                                  kCRToastSubtitleTextKey : attendee.userId ,
+                                  kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                  kCRToastBackgroundColorKey : [UIColor colorWithRed:2.0/255 green:35.0/255 blue:77.0/255 alpha:1],
+                                  kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                  kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                  kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                                  kCRToastFontKey: [UIFont fontWithName:@"NotoSans-Bold" size:17],
+                                  kCRToastSubtitleFontKey: [UIFont fontWithName:@"NotoSans" size:17],
+                                  kCRToastTimeIntervalKey: @(1),
+                                  kCRToastAnimationInTimeIntervalKey: @(0.25),
+                                  kCRToastAnimationOutTimeIntervalKey: @(0.25),
+                                  };
+        [CRToastManager showNotificationWithOptions:options completionBlock:nil];
+    }
+}
+
+- (void)showNotificationMessage:(NSString*)title Subtitle:(NSString*)subtitle {
+    NSDictionary *options = @{
+                              kCRToastTextKey : title ?title:@"",
+                              kCRToastSubtitleTextKey : subtitle ?subtitle:@"" ,
+                              kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                              kCRToastBackgroundColorKey : [UIColor colorWithRed:2.0/255 green:35.0/255 blue:77.0/255 alpha:1],
+                              kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                              kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                              kCRToastNotificationTypeKey : @(CRToastTypeCustom),
+                              kCRToastFontKey: [UIFont fontWithName:@"NotoSans-Bold" size:17],
+                              kCRToastSubtitleFontKey: [UIFont fontWithName:@"NotoSans" size:17],
+                              kCRToastTimeIntervalKey: @(5),
+                              kCRToastAnimationInTimeIntervalKey: @(0.25),
+                              kCRToastAnimationOutTimeIntervalKey: @(0.25),
+                              kCRToastNotificationPreferredHeightKey: @(104),
+                              };
+    [CRToastManager showNotificationWithOptions:options completionBlock:nil];
+}
+
+- (void)showErrorAlert:(NSString*)title Subtitle:(NSString*)subtitle {
+    NSDictionary *options = @{
+                              kCRToastTextKey : title ?title:@"" ,
+                              kCRToastSubtitleTextKey : subtitle ?subtitle:@"",
+                              kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                              kCRToastBackgroundColorKey : [UIColor redColor],
+                              kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                              kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                              kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                              kCRToastFontKey: [UIFont fontWithName:@"NotoSans-Bold" size:17],
+                              kCRToastSubtitleFontKey: [UIFont fontWithName:@"NotoSans" size:17],
+                              kCRToastTimeIntervalKey: @(1),
+                              kCRToastAnimationInTimeIntervalKey: @(0.25),
+                              kCRToastAnimationOutTimeIntervalKey: @(0.25),
+                              };
+    [CRToastManager showNotificationWithOptions:options completionBlock:nil];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    [self showNotificationMessage:notification.request.content.title Subtitle:notification.request.content.body];
 }
 
 @end
