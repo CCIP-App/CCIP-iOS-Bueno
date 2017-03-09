@@ -1,11 +1,22 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '8.0'
 
 target 'CCIP-iOS-Bueno' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
   # Pods for CCIP-iOS-Bueno
+  pod 'RestKit', '~> 0.27'
+  pod 'FontAwesomeKit', '~> 2.2.0'
+  pod 'UICKeyChainStore'
+  pod 'Firebase/DynamicLinks'
+  pod "MTBBarcodeScanner"
+  pod 'MBProgressHUD', '~> 1.0.0'
+  pod 'PINRemoteImage', '3.0.0-beta.8'
+  pod 'ICViewPager', :git => 'https://github.com/FrankWu100/ICViewPager'
+  pod 'iCarousel'
+  pod 'CRToast'
+  pod 'OneSignal'
 
   target 'CCIP-iOS-BuenoTests' do
     inherit! :search_paths

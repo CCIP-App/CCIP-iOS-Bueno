@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  CCIP-iOS-Bueno
+
+  Created by 高宜誠 on 2017/2/26.
+  Copyright © 2017年 高宜誠. All rights reserved.
+*/
+"token error" = "Token錯誤";
+"invalid token" = "無效的Token";
+"minutes" = "分鐘";
+"Scenario Status" = "Scenario 狀態";
+"Used" = "已使用";
+"Expired" = "已過期";
+"Using" = "使用中";
+"Use" = "使用";
+"For Supporters Only" = "贊助者限定";
+"Oops! There is no message." = "Oops! 目前沒有公告";
+
+"QRFileNotAvailableTitle" = "QR 讀取失敗";
+"QRFileNotAvailableDesc" = "檔案讀取失敗";
+"Introduction" = "介紹";
+"Speaker" = "講者";
+"No Token Available" = "沒有可用的Token";
+"Network Error" = "網路錯誤";
+"Please Use Wifi" = "請使用大會Wifi";
+"Welocme" = "歡迎";

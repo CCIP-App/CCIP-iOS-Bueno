@@ -5,21 +5,60 @@
 //  Created by 高宜誠 on 2016/12/18.
 //  Copyright © 2016年 高宜誠. All rights reserved.
 //
-
 #import "AppDelegate.h"
-
+#import "APIManager.h"
+#import <Firebase.h>
+#import "NotificationManager.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+#pragma mark AppDelegate
++ (AppDelegate *)appDelegate {
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
-
+#pragma mark Application Event
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //[[APIManager sharedManager] resetAccessToken];
+    [OneSignal initWithLaunchOptions:launchOptions appId:@"9b74779c-bcd8-471e-a64b-e033acf0ebbd"];
+    [NotificationManager sharedManager];
+    [FIRApp configure];
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+    return [self application:app openURL:url options:@{}];
+}
+
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *))restorationHandler {
+    BOOL handled = [[FIRDynamicLinks dynamicLinks]
+                    handleUniversalLink:userActivity.webpageURL
+                    completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                 NSError * _Nullable error) {
+                        [self handleFirebaseLink:dynamicLink];
+                    }];
+    
+    
+    return handled;
+}
+
+- (void)handleFirebaseLink:(FIRDynamicLink*)dynamicLink {
+    NSRegularExpression* tokenRe = [NSRegularExpression regularExpressionWithPattern:@"token=(\\w+)" options:0 error:nil];
+    [tokenRe enumerateMatchesInString:[dynamicLink.url absoluteString] options:0 range:NSMakeRange(0, [[dynamicLink.url absoluteString] length]) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        NSString *token = [[dynamicLink.url absoluteString] substringWithRange:[result rangeAtIndex:1]];
+        [[APIManager sharedManager] setAccessToken:token Completion:^(Attendee * _Nonnull attendee) {
+            
+        } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+            
+        }];
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

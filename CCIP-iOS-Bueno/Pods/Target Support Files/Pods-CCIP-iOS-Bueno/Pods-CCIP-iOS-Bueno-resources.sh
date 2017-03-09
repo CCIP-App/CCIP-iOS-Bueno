@@ -73,6 +73,22 @@ EOM
       ;;
   esac
 }
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/foundation-icons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/ionicons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/Material-Design-Iconic-Font.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/octicons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/foundation-icons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/ionicons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/Material-Design-Iconic-Font.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/octicons.ttf"
+  install_resource "FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"
+fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
