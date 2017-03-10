@@ -28,12 +28,23 @@
 
 - (void)config {
     [self updateTime];
+    
+    if([self.scenario.scenarioId isEqualToString:@"lunch"]) {
+        if([[self.scenario.attr objectForKey:@"diet"] isEqualToString:@"meat"]) {
+            self.view.backgroundColor = [UIColor colorWithRed:1 green:160.0/255 blue:0 alpha:1];//FFA000
+        } else {
+            self.view.backgroundColor = [UIColor colorWithRed:41.0/255 green:138.0/255 blue:8.0/255 alpha:1];
+        }//298A08
+        [self.effectView setAlpha:0.0];
+    }
+    
     if([[[NSLocale currentLocale] languageCode] isEqualToString:@"zh"])
         self.titleLabel.text = self.scenario.display.zh;
     else
         self.titleLabel.text = self.scenario.display.en;
     self.attrLabel.text = @"";
     for (NSString* key in [self.scenario.attr allKeys]) {
+        
         self.attrLabel.text = [self.attrLabel.text stringByAppendingFormat:@"%@\n", [self.scenario.attr objectForKey:key]];
     }
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];

@@ -37,9 +37,6 @@
 		2C68F9331E716AD10023871E /* MoreTabTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C68F9321E716AD10023871E /* MoreTabTableViewController.m */; };
 		2C68F9361E7181080023871E /* PuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C68F9351E7181080023871E /* PuzzleViewController.m */; };
 		2C68F9381E71B51C0023871E /* no_network.html in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9371E71B51C0023871E /* no_network.html */; };
-		2C68F93C1E71C32D0023871E /* telegram_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9391E71C32D0023871E /* telegram_logo.png */; };
-		2C68F93D1E71C32D0023871E /* telegram_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F93A1E71C32D0023871E /* telegram_logo@2x.png */; };
-		2C68F93E1E71C32D0023871E /* telegram_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F93B1E71C32D0023871E /* telegram_logo@3x.png */; };
 		2C68F9411E71C7C20023871E /* StaffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C68F9401E71C7C20023871E /* StaffViewController.m */; };
 		2C68F9441E71CDF80023871E /* SponsoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C68F9431E71CDF80023871E /* SponsoredViewController.m */; };
 		2C68F9511E71D1340023871E /* ic_extension_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9451E71D1340023871E /* ic_extension_black_24dp.png */; };
@@ -57,6 +54,9 @@
 		2C68F9601E71D1990023871E /* ic_redeem_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F95D1E71D1990023871E /* ic_redeem_black_48dp.png */; };
 		2C68F9611E71D1990023871E /* ic_redeem_black_48dp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F95E1E71D1990023871E /* ic_redeem_black_48dp@2x.png */; };
 		2C68F9621E71D1990023871E /* ic_redeem_black_48dp@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F95F1E71D1990023871E /* ic_redeem_black_48dp@3x.png */; };
+		2C68F9681E725F910023871E /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9651E725F910023871E /* send.png */; };
+		2C68F9691E725F910023871E /* send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9661E725F910023871E /* send@2x.png */; };
+		2C68F96A1E725F910023871E /* send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68F9671E725F910023871E /* send@3x.png */; };
 		2C6CDF8D1E70680C0026BC87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C6CDF8C1E70680C0026BC87 /* GoogleService-Info.plist */; };
 		2C8B255C1E6AA72B0032CD00 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8B25591E6AA72B0032CD00 /* title.png */; };
 		2C8B255D1E6AA72B0032CD00 /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8B255A1E6AA72B0032CD00 /* title@2x.png */; };
@@ -185,9 +185,6 @@
 		2C68F9341E7181080023871E /* PuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PuzzleViewController.h; path = ViewControllers/PuzzleViewController.h; sourceTree = "<group>"; };
 		2C68F9351E7181080023871E /* PuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PuzzleViewController.m; path = ViewControllers/PuzzleViewController.m; sourceTree = "<group>"; };
 		2C68F9371E71B51C0023871E /* no_network.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = no_network.html; sourceTree = "<group>"; };
-		2C68F9391E71C32D0023871E /* telegram_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = telegram_logo.png; path = Resources/Images/telegram_logo.png; sourceTree = "<group>"; };
-		2C68F93A1E71C32D0023871E /* telegram_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "telegram_logo@2x.png"; path = "Resources/Images/telegram_logo@2x.png"; sourceTree = "<group>"; };
-		2C68F93B1E71C32D0023871E /* telegram_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "telegram_logo@3x.png"; path = "Resources/Images/telegram_logo@3x.png"; sourceTree = "<group>"; };
 		2C68F93F1E71C7C20023871E /* StaffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffViewController.h; sourceTree = "<group>"; };
 		2C68F9401E71C7C20023871E /* StaffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffViewController.m; sourceTree = "<group>"; };
 		2C68F9421E71CDF80023871E /* SponsoredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SponsoredViewController.h; sourceTree = "<group>"; };
@@ -208,6 +205,9 @@
 		2C68F95E1E71D1990023871E /* ic_redeem_black_48dp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_redeem_black_48dp@2x.png"; path = "Resources/Images/ic_redeem_black_48dp@2x.png"; sourceTree = "<group>"; };
 		2C68F95F1E71D1990023871E /* ic_redeem_black_48dp@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ic_redeem_black_48dp@3x.png"; path = "Resources/Images/ic_redeem_black_48dp@3x.png"; sourceTree = "<group>"; };
 		2C68F9641E71D3550023871E /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		2C68F9651E725F910023871E /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = send.png; path = Resources/Images/send.png; sourceTree = "<group>"; };
+		2C68F9661E725F910023871E /* send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "send@2x.png"; path = "Resources/Images/send@2x.png"; sourceTree = "<group>"; };
+		2C68F9671E725F910023871E /* send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "send@3x.png"; path = "Resources/Images/send@3x.png"; sourceTree = "<group>"; };
 		2C6CDF8C1E70680C0026BC87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C6CDF8E1E7074E30026BC87 /* CCIP-iOS-Bueno.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CCIP-iOS-Bueno.entitlements"; sourceTree = "<group>"; };
 		2C8B25591E6AA72B0032CD00 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/Images/title.png; sourceTree = "<group>"; };
@@ -482,9 +482,6 @@
 				2C68F94E1E71D1340023871E /* ic_qrcode.png */,
 				2C68F94F1E71D1340023871E /* ic_qrcode@2x.png */,
 				2C68F9501E71D1340023871E /* ic_qrcode@3x.png */,
-				2C68F9391E71C32D0023871E /* telegram_logo.png */,
-				2C68F93A1E71C32D0023871E /* telegram_logo@2x.png */,
-				2C68F93B1E71C32D0023871E /* telegram_logo@3x.png */,
 				2C68F91F1E71174D0023871E /* close.png */,
 				2C68F9201E71174D0023871E /* close@2x.png */,
 				2C68F9211E71174D0023871E /* close@3x.png */,
@@ -518,6 +515,9 @@
 				2CF3B4C21E63BE6E00998B80 /* building.png */,
 				2C0249881E6211320001184D /* startBtn.png */,
 				2C0249861E62105D0001184D /* background.png */,
+				2C68F9651E725F910023871E /* send.png */,
+				2C68F9661E725F910023871E /* send@2x.png */,
+				2C68F9671E725F910023871E /* send@3x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -788,7 +788,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C68F93C1E71C32D0023871E /* telegram_logo.png in Resources */,
 				2C21D90E1E671557000F5829 /* Star@2x.png in Resources */,
 				2CF3B4ED1E63D60000998B80 /* NotoSans-Bold.ttf in Resources */,
 				2CF3B4EE1E63D60000998B80 /* NotoSans-BoldItalic.ttf in Resources */,
@@ -806,6 +805,7 @@
 				2C68F95C1E71D1350023871E /* ic_qrcode@3x.png in Resources */,
 				2C68F9231E71174D0023871E /* close@2x.png in Resources */,
 				2C8B255C1E6AA72B0032CD00 /* title.png in Resources */,
+				2C68F96A1E725F910023871E /* send@3x.png in Resources */,
 				2CF3B4F41E63D60000998B80 /* NotoSansUI-Regular.ttf in Resources */,
 				2CAEE7091E6B14A5003B073E /* sitcon@3x.png in Resources */,
 				2CF3B4E11E63CC0700998B80 /* icon_ios_chat.png in Resources */,
@@ -813,7 +813,6 @@
 				2C8B255E1E6AA72B0032CD00 /* title@3x.png in Resources */,
 				2CF3B4D71E63C97B00998B80 /* icon_ios_bell@3x.png in Resources */,
 				2C21D90C1E671557000F5829 /* Star_Filled@3x.png in Resources */,
-				2C68F93D1E71C32D0023871E /* telegram_logo@2x.png in Resources */,
 				2CF3B4D01E63C94100998B80 /* icon_ios_topcharts@2x.png in Resources */,
 				2CF3B4CF1E63C94100998B80 /* icon_ios_topcharts.png in Resources */,
 				2C68F9241E71174D0023871E /* close@3x.png in Resources */,
@@ -836,13 +835,14 @@
 				2C68F9571E71D1340023871E /* ic_pages_48pt.png in Resources */,
 				2CF3B4CE1E63C94100998B80 /* icon_ios_pin@3x.png in Resources */,
 				2CEAA8531E06C992003FC4FF /* Assets.xcassets in Resources */,
-				2C68F93E1E71C32D0023871E /* telegram_logo@3x.png in Resources */,
 				2CAEE7081E6B14A5003B073E /* sitcon@2x.png in Resources */,
+				2C68F9691E725F910023871E /* send@2x.png in Resources */,
 				2C68F9591E71D1340023871E /* ic_pages_48pt@3x.png in Resources */,
 				2C68F9551E71D1340023871E /* ic_group_black_48dp@2x.png in Resources */,
 				2C68F9511E71D1340023871E /* ic_extension_black_24dp.png in Resources */,
 				2C68F9561E71D1340023871E /* ic_group_black_48dp@3x.png in Resources */,
 				2CAEE70E1E6B1833003B073E /* stone@2x.png in Resources */,
+				2C68F9681E725F910023871E /* send.png in Resources */,
 				2CF3B4CD1E63C94100998B80 /* icon_ios_pin@2x.png in Resources */,
 				2CAEE70D1E6B1833003B073E /* stone.png in Resources */,
 				2CAEE7071E6B14A5003B073E /* sitcon.png in Resources */,

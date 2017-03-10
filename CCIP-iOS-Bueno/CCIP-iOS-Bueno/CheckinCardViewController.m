@@ -51,7 +51,7 @@
     } else if (self.scenario.used) {
         if ([[NSDate date] timeIntervalSinceDate:self.scenario.used] < [self.scenario.countdown doubleValue]) {
             [self.actionBtn setTitle:NSLocalizedString(@"Using", nil) forState:UIControlStateNormal];
-            [self.actionBtn setBackgroundColor:[UIColor greenColor]];
+            [self.actionBtn setBackgroundColor:[UIColor colorWithRed:0 green:159.0/255 blue:242.0/255 alpha:1]];//009FE8
         } else {
             [self.actionBtn setTitle:NSLocalizedString(@"Used", nil) forState:UIControlStateNormal];
             [self.actionBtn setBackgroundColor:[UIColor grayColor]];
@@ -61,7 +61,7 @@
         [self.actionBtn setBackgroundColor:[UIColor greenColor]];
     } else {
         [self.actionBtn setTitle:NSLocalizedString(@"Use", nil) forState:UIControlStateNormal];
-        [self.actionBtn setBackgroundColor:[UIColor colorWithRed:2.0/255 green:35.0/255 blue:77.0/255 alpha:1]];
+        [self.actionBtn setBackgroundColor:[UIColor colorWithRed:244.0/255 green:0 blue:119.0/255 alpha:1]];//E4007F
     }
 }
 

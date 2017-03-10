@@ -10,6 +10,7 @@
 #import "APIManager.h"
 #import "AnnouncementTableViewCell.h"
 @interface AnnouncementTableViewController ()
+- (IBAction)refresh:(UIRefreshControl *)sender;
 
 @property (strong, nonatomic) NSArray* announcements;
 @property (strong, nonatomic) NSDateFormatter* timeFormatter;
@@ -138,4 +139,14 @@
 }
 */
 
+- (IBAction)refresh:(UIRefreshControl *)sender {
+    [[APIManager sharedManager] reloadAnnouncement];
+    [[APIManager sharedManager] requestAnnouncementWithCompletion:^(NSArray * _Nonnull announcements) {
+        self.announcements = announcements;
+        [self.tableView reloadData];
+        [sender endRefreshing];
+    } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+        [sender endRefreshing];
+    }];
+}
 @end

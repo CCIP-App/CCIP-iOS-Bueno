@@ -35,6 +35,7 @@
 
 - (Attendee * _Null_unspecified)getAttendee;
 - (void)reloadSubmissions;
+- (void)reloadAnnouncement;
 
 - (void)useScenarioWithScenrio:(Scenario*)scenario Completion:(void (^ _Nullable)(Scenario* _Nonnull scenario))completion Failure:(void (^ _Nullable)(ErrorMessage* _Nonnull errorMessage))failure;
 

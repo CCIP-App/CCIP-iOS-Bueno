@@ -215,6 +215,9 @@
     else
         return NULL;
 }
+- (void)reloadAnnouncement {
+    self.announcements = nil;
+}
 
 - (void)reloadSubmissions {
     self.submissions = NULL;

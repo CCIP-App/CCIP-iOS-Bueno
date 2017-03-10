@@ -20,6 +20,8 @@
 @property (strong, nonatomic) NSDateFormatter* minFormatter;
 @property (strong, nonnull) NSDateFormatter* hmFormatter;
 @property (strong, nonatomic) NSArray* sortedSubmissionsKey;
+- (IBAction)refresh:(UIRefreshControl *)sender;
+
 
 @end
 
@@ -88,6 +90,9 @@
     } Failure:^(ErrorMessage * _Nonnull errorMessage) {
         
     }];
+    
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -202,4 +207,14 @@
 }
 
 
+- (IBAction)refresh:(UIRefreshControl *)sender {
+    [[APIManager sharedManager] reloadSubmissions];
+    [[APIManager sharedManager] requestSubmissionWithCompletion:^(NSArray * _Nonnull submissions) {
+        [self loadSubmissions:submissions];
+        [self.tableView reloadData];
+        [sender endRefreshing];
+    } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+        [sender endRefreshing];
+    }];
+}
 @end
