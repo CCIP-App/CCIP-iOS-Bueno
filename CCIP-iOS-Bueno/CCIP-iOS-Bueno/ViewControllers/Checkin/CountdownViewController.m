@@ -7,7 +7,7 @@
 //
 
 #import "CountdownViewController.h"
-
+#import <Google/Analytics.h>
 @interface CountdownViewController ()
 @property (strong ,nonatomic) NSTimer* timer;
 @end
@@ -20,6 +20,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"CountdownView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

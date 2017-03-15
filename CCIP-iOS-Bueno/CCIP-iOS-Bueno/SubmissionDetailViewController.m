@@ -10,6 +10,7 @@
 #import "NotificationManager.h"
 #import <UserNotifications/UserNotifications.h>
 #import "SubMissionViewPagerController.h"
+#import <Google/Analytics.h>
 @interface SubmissionDetailViewController ()
 
 @end
@@ -78,6 +79,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"SubmissionDetailView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 

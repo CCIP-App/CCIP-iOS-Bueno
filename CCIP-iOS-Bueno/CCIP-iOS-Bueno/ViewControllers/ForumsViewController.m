@@ -8,6 +8,8 @@
 
 #import "ForumsViewController.h"
 #import <MBProgressHUD.h>
+#import <Google/Analytics.h>
+#import "NotificationManager.h"
 @interface ForumsViewController ()
 
 @property (strong, nonatomic) WKWebView* webView;
@@ -36,6 +38,10 @@
     self.hud.mode = MBProgressHUDModeIndeterminate;
     self.hud.animationType = MBProgressHUDAnimationFade;
     [self.webView setAlpha:0.0];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"ForumsView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -52,11 +58,9 @@
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     [self.hud hideAnimated:YES];
-    if(error.code == NSURLErrorNotConnectedToInternet) {
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"no_network" ofType:@"html"];
-        [self.webView loadHTMLString:[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
-
-    }
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"no_network" ofType:@"html"];
+    [self.webView loadHTMLString:[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
+    [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
 }
 
 - (void)didReceiveMemoryWarning {

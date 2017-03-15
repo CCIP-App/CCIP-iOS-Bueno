@@ -27,6 +27,12 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -58,7 +64,10 @@
         }
     } else if ([self.scenario.expireTime timeIntervalSinceDate:[NSDate date]] < 0) {
         [self.actionBtn setTitle:NSLocalizedString(@"Expired", nil) forState:UIControlStateNormal];
-        [self.actionBtn setBackgroundColor:[UIColor greenColor]];
+        [self.actionBtn setBackgroundColor:[UIColor grayColor]];
+    } else if ([self.scenario.availableTime timeIntervalSinceDate:[NSDate date]] > 0) {
+        [self.actionBtn setTitle:NSLocalizedString(@"Not available yet", nil) forState:UIControlStateNormal];
+        [self.actionBtn setBackgroundColor:[UIColor grayColor]];
     } else {
         [self.actionBtn setTitle:NSLocalizedString(@"Use", nil) forState:UIControlStateNormal];
         [self.actionBtn setBackgroundColor:[UIColor colorWithRed:244.0/255 green:0 blue:119.0/255 alpha:1]];//E4007F
@@ -87,6 +96,8 @@
         }
     } else if ([self.scenario.expireTime timeIntervalSinceDate:[NSDate date]] < 0) {
         [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Scenario Status", nil) Subtitle:NSLocalizedString(@"Expired", nil)];
+    } else if ([self.scenario.availableTime timeIntervalSinceDate:[NSDate date]] > 0) {
+        [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Scenario Status", nil) Subtitle:NSLocalizedString(@"Not available yet", nil)];
     } else {
         [[APIManager sharedManager] useScenarioWithScenrio:self.scenario Completion:^(Scenario * _Nonnull scenario) {
             self.scenario = scenario;

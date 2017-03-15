@@ -13,6 +13,7 @@
 #import "SubmissionsTimeCell.h"
 #import <MBProgressHUD.h>
 #import "SubmissionDetailViewController.h"
+#import <Google/Analytics.h>
 @interface SubmissionsTableViewController ()
 
 @property (strong, nonatomic) NSDictionary* submissions;
@@ -103,6 +104,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"SubmissionsView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,6 +9,8 @@
 #import "APIManager.h"
 #import <Firebase.h>
 #import "NotificationManager.h"
+#import <Google/Analytics.h>
+
 @interface AppDelegate ()
 
 @end
@@ -22,6 +24,10 @@
 #pragma mark Application Event
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[[APIManager sharedManager] resetAccessToken];
+    
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-34467841-12"];
+    [[GAI sharedInstance].defaultTracker setAllowIDFACollection:NO];
+    [[UINavigationBar appearance] setTintColor: [UIColor whiteColor]];//[UIColor colorWithRed:244.0/255 green:0 blue:119.0/255 alpha:1]];
     [OneSignal initWithLaunchOptions:launchOptions appId:@"9b74779c-bcd8-471e-a64b-e033acf0ebbd"];
     [NotificationManager sharedManager];
     [FIRApp configure];
