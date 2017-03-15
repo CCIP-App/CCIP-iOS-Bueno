@@ -37,6 +37,12 @@ PODS:
     - FontAwesomeKit/Core
   - FontAwesomeKit/Zocial (2.2.1):
     - FontAwesomeKit/Core
+  - Google/Analytics (3.0.3):
+    - Google/Core
+    - GoogleAnalytics (~> 3.12)
+  - Google/Core (3.0.3):
+    - FirebaseAnalytics (~> 3.2)
+  - GoogleAnalytics (3.17.0)
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
@@ -92,6 +98,7 @@ DEPENDENCIES:
   - CRToast
   - Firebase/DynamicLinks
   - FontAwesomeKit (~> 2.2.0)
+  - Google/Analytics
   - iCarousel
   - ICViewPager (from `https://github.com/FrankWu100/ICViewPager`)
   - MBProgressHUD (~> 1.0.0)
@@ -119,6 +126,8 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
+  Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   ICViewPager: c1278b67eceac7252d48252829c3c703285dfb76
@@ -135,6 +144,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-PODFILE CHECKSUM: f94dc2fc97521c7a387ca799d425a55a169f9d1e
+PODFILE CHECKSUM: 977e780d2b535587c5cd6ea771da3823dbe3846f
 
 COCOAPODS: 1.1.1

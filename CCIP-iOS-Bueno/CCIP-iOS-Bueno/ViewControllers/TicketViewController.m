@@ -8,6 +8,7 @@
 
 #import "TicketViewController.h"
 #import "APIManager.h"
+#import <Google/Analytics.h>
 @interface TicketViewController ()
 
 @property (strong, nonatomic) NSString* accessToken;
@@ -33,6 +34,10 @@
     } else {
         
     }
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"TicketView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {

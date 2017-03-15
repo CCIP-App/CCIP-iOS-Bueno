@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) UNUserNotificationCenter* notificationCenter;
 @property void (^receiveNotificationSettings)(UNNotificationSettings * _Nonnull settings);
-
+@property (strong, nonatomic) CRToastInteractionResponder* dismissToast;
 @end
 
 @implementation NotificationManager
@@ -32,6 +32,9 @@
         self.notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         self.notificationCenter.delegate = self;
         [[[APIManager sharedManager] delegates] addObject:self];
+        self.dismissToast = [CRToastInteractionResponder interactionResponderWithInteractionType:CRToastInteractionTypeSwipeUp automaticallyDismiss:YES block:^(CRToastInteractionType interactionType) {
+            
+        }];
     }
     return self;
 }
@@ -112,7 +115,7 @@
                               kCRToastTextKey : title ?title:@"",
                               kCRToastSubtitleTextKey : subtitle ?subtitle:@"" ,
                               kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
-                              kCRToastBackgroundColorKey : [UIColor colorWithRed:2.0/255 green:35.0/255 blue:77.0/255 alpha:1],
+                              kCRToastBackgroundColorKey : [UIColor colorWithRed:0 green:142.0/255 blue:205.0/255 alpha:1],//008ECD
                               kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
                               kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
                               kCRToastNotificationTypeKey : @(CRToastTypeCustom),
@@ -122,6 +125,7 @@
                               kCRToastAnimationInTimeIntervalKey: @(0.25),
                               kCRToastAnimationOutTimeIntervalKey: @(0.25),
                               kCRToastNotificationPreferredHeightKey: @(104),
+                              kCRToastInteractionRespondersKey: @[self.dismissToast]
                               };
     [CRToastManager showNotificationWithOptions:options completionBlock:nil];
 }
@@ -131,7 +135,7 @@
                               kCRToastTextKey : title ?title:@"" ,
                               kCRToastSubtitleTextKey : subtitle ?subtitle:@"",
                               kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
-                              kCRToastBackgroundColorKey : [UIColor redColor],
+                              kCRToastBackgroundColorKey : [UIColor colorWithRed:244.0/255 green:0 blue:119.0/255 alpha:1],//D96CA4
                               kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
                               kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
                               kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),

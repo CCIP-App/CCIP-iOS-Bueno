@@ -10,3 +10,4 @@
 
 "QRFileNotAvailableTitle" = "QR File Load Failed";
 "QRFileNotAvailableDesc" = "QR File Not Available";
+"ConfirmAlertText" = "Have you followed the staffs instructions?";
