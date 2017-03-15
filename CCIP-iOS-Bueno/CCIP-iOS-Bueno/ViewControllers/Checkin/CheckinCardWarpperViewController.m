@@ -131,6 +131,7 @@
         view = viewController.view;
         cardView = (CheckinCardView*)view;
         viewController.cardView.controller = viewController;
+        [self addChildViewController:viewController];
     } else {
     }
     if ([(Scenario*)[self.scenarios objectAtIndex:index] countdown]>0) {

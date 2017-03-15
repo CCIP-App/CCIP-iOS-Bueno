@@ -96,21 +96,20 @@
         }
     } else if ([self.scenario.expireTime timeIntervalSinceDate:[NSDate date]] < 0) {
         [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Scenario Status", nil) Subtitle:NSLocalizedString(@"Expired", nil)];
-    }/* else if ([self.scenario.availableTime timeIntervalSinceDate:[NSDate date]] > 0) {
+    } else if ([self.scenario.availableTime timeIntervalSinceDate:[NSDate date]] > 0) {
         [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Scenario Status", nil) Subtitle:NSLocalizedString(@"Not available yet", nil)];
-    }*/ else {
-        UIAlertController *idiotProof = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"", nil) message:NSLocalizedString(@"", nil) preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"comfirm", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            /*[[APIManager sharedManager] useScenarioWithScenrio:self.scenario Completion:^(Scenario * _Nonnull scenario) {*/
-                //self.scenario = scenario;
-            self.scenario.countdown = [NSNumber numberWithInt:20];
+    } else {
+        UIAlertController *idiotProof = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Warning", nil) message:NSLocalizedString(@"ConfirmAlertText", nil) preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[APIManager sharedManager] useScenarioWithScenrio:self.scenario Completion:^(Scenario * _Nonnull scenario) {
+                self.scenario = scenario;
                 if ([self.scenario.countdown doubleValue] > 0)
-                    [self showCountDownVCWithScenario:self.scenario];
-           /* } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+                    [self showCountDownVCWithScenario:scenario];
+            } Failure:^(ErrorMessage * _Nonnull errorMessage) {
                 
-            }];*/
+            }];
         }];
-        UIAlertAction *caneclAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *caneclAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"NO", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         }];
         [idiotProof addAction:defaultAction];
         [idiotProof addAction:caneclAction];
@@ -121,7 +120,7 @@
 - (void)showCountDownVCWithScenario:(Scenario*)scenario {
     CountdownViewController *countdownViewController = (CountdownViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"countdownVC"];
     countdownViewController.view.frame = [[UIScreen mainScreen] bounds];
-    UIViewController* rootVC = [[[UIApplication sharedApplication] keyWindow] ];
+    UIViewController* rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     countdownViewController.scenario = scenario;
     [countdownViewController config];
     [countdownViewController.view setAlpha:0.0];
