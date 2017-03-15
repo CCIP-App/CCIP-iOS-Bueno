@@ -13,6 +13,7 @@
 #import "APIManager.h"
 #import "CheckinViewController.h"
 #import "NotificationManager.h"
+#import <Google/Analytics.h>
 @interface RedeemViewController ()
 @property (strong, nonatomic) MTBBarcodeScanner *qrScanner;
 @end
@@ -29,6 +30,10 @@
     [super viewWillAppear:animated];
     [self.qrWarpperView setAlpha:0.0];
     [self.infoWrapperView setAlpha:1.0];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"RedeemView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {

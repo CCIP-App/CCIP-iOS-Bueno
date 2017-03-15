@@ -9,7 +9,9 @@
 #import "AnnouncementTableViewController.h"
 #import "APIManager.h"
 #import "AnnouncementTableViewCell.h"
+#import <Google/Analytics.h>
 @interface AnnouncementTableViewController ()
+- (IBAction)refresh:(UIRefreshControl *)sender;
 
 @property (strong, nonatomic) NSArray* announcements;
 @property (strong, nonatomic) NSDateFormatter* timeFormatter;
@@ -50,6 +52,14 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"AnnouncementView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -138,4 +148,14 @@
 }
 */
 
+- (IBAction)refresh:(UIRefreshControl *)sender {
+    [[APIManager sharedManager] reloadAnnouncement];
+    [[APIManager sharedManager] requestAnnouncementWithCompletion:^(NSArray * _Nonnull announcements) {
+        self.announcements = announcements;
+        [self.tableView reloadData];
+        [sender endRefreshing];
+    } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+        [sender endRefreshing];
+    }];
+}
 @end

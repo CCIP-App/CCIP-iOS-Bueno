@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Scenario.h"
 @interface CountdownViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIVisualEffectView *effectView;
 @property (strong, nonatomic) Scenario* scenario;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;

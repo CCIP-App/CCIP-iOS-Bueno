@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <iCarousel.h>
 #import "APIManager.h"
+
 @interface CheckinCardWarpperViewController : UIViewController<iCarouselDataSource, iCarouselDelegate, APIManagerDelegate>
 @property (strong, nonatomic) IBOutlet iCarousel *cardWarpper;
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;

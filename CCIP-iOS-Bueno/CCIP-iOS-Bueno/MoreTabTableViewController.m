@@ -9,6 +9,8 @@
 #import "MoreTabTableViewController.h"
 #import "APIManager.h"
 #import "NotificationManager.h"
+#import "PuzzleViewController.h"
+#import <Google/Analytics.h>
 @interface MoreTabTableViewController ()
 
 @end
@@ -21,13 +23,18 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sitcon"]];
     imageView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 28);
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = imageView;
-    
-    // Uncomment the following line to preserve selection between presentations.
+    self.navigationItem.titleView = imageView;    // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"MoreTabView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,8 +93,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"ticketSegue"]) {
-        if(!)
+    if([segue.identifier isEqualToString:@"puzzleSegue"]) {
+        [(PuzzleViewController*)[segue destinationViewController] loadWeb];
     }
 }*/
 

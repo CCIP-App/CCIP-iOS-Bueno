@@ -11,6 +11,9 @@
 #import "CheckinCardView.h"
 #import "Scenario.h"
 #import "APIManager.h"
+#import <Google/Analytics.h>
+
+
 @interface CheckinCardWarpperViewController ()
 
 @property (strong, nonatomic) NSArray* scenarios;
@@ -46,7 +49,20 @@
         }];
     }];
     
+    self.navigationItem.titleView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                 action:@selector(navSingleTap)];
+    [self.navigationItem.titleView addGestureRecognizer:tapGesture];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"CheckinCardView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)attendeeStatusChange:(Attendee *)attendee {
@@ -68,6 +84,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)navSingleTap {
+    //NSLog(@"navSingleTap");
+    [self handleNavTapTimes];
+}
+
+- (void)handleNavTapTimes {
+    static int tapTimes = 0;
+    static NSDate *oldTapTime;
+    static NSDate *newTapTime;
+    
+    newTapTime = [NSDate date];
+    if (oldTapTime == nil) {
+        oldTapTime = newTapTime;
+    }
+    if ([newTapTime timeIntervalSinceDate: oldTapTime] <= 0.25f) {
+        tapTimes++;
+        if (tapTimes == 10) {
+            NSLog(@"--  Success tap 10 times  --");
+            if ([[APIManager sharedManager] haveAccessToken]) {
+                NSLog(@"-- Clearing the Token --");
+                [[APIManager sharedManager] resetAccessToken];
+                [self reloadData];
+            } else {
+                NSLog(@"-- Token is already clear --");
+            }
+        }
+    }
+    else {
+        NSLog(@"--  Failed, just tap %2d times  --", tapTimes);
+        NSLog(@"-- Not trigger clean token --");
+        tapTimes = 1;
+    }
+    oldTapTime = newTapTime;
+}
+
+
 - (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
     return [self.scenarios count];
 }
@@ -79,6 +131,7 @@
         view = viewController.view;
         cardView = (CheckinCardView*)view;
         viewController.cardView.controller = viewController;
+        [self addChildViewController:viewController];
     } else {
     }
     if ([(Scenario*)[self.scenarios objectAtIndex:index] countdown]>0) {
@@ -87,6 +140,7 @@
     [cardView.controller setScenario:[self.scenarios objectAtIndex:index]];
     return view;
 }
+
 
 #pragma mark iCarousel methods
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {

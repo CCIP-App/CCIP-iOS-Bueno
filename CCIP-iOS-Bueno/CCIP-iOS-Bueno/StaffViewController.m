@@ -8,6 +8,8 @@
 
 #import "StaffViewController.h"
 #import <MBProgressHUD.h>
+#import <Google/Analytics.h>
+#import "NotificationManager.h"
 @interface StaffViewController ()
 @property (strong, nonatomic) WKWebView* webView;
 @property (strong, nonnull) MBProgressHUD *hud;
@@ -35,6 +37,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"StaffView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -49,11 +55,10 @@
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     [self.hud hideAnimated:YES];
-    if(error.code == NSURLErrorNotConnectedToInternet) {
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"no_network" ofType:@"html"];
-        [self.webView loadHTMLString:[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
-        
-    }
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"no_network" ofType:@"html"];
+    [self.webView loadHTMLString:[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
+    
+    [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Network Error", nil) Subtitle:[error localizedDescription]];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -62,6 +67,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.webView.frame = self.contentView.frame;
+    
 }
 /*
 #pragma mark - Navigation

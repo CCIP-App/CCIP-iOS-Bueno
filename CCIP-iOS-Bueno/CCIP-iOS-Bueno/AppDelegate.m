@@ -9,6 +9,8 @@
 #import "APIManager.h"
 #import <Firebase.h>
 #import "NotificationManager.h"
+#import <Google/Analytics.h>
+
 @interface AppDelegate ()
 
 @end
@@ -22,6 +24,10 @@
 #pragma mark Application Event
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[[APIManager sharedManager] resetAccessToken];
+    
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-34467841-12"];
+    [[GAI sharedInstance].defaultTracker setAllowIDFACollection:NO];
+    [[UINavigationBar appearance] setTintColor: [UIColor whiteColor]];//[UIColor colorWithRed:244.0/255 green:0 blue:119.0/255 alpha:1]];
     [OneSignal initWithLaunchOptions:launchOptions appId:@"9b74779c-bcd8-471e-a64b-e033acf0ebbd"];
     [NotificationManager sharedManager];
     [FIRApp configure];
@@ -31,20 +37,34 @@
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
-    return [self application:app openURL:url options:@{}];
+    return [self application:app openURL:url sourceApplication:nil annotation:@{}];
 }
 
 - (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    FIRDynamicLink *dynamicLink =
+    [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    
+    if (dynamicLink) {
+        [self handleFirebaseLink:dynamicLink];
+        return YES;
+    }
+    
+    return NO;
+}
+- (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray *))restorationHandler {
-    BOOL handled = [[FIRDynamicLinks dynamicLinks]
+   BOOL handled = [[FIRDynamicLinks dynamicLinks]
                     handleUniversalLink:userActivity.webpageURL
                     completion:^(FIRDynamicLink * _Nullable dynamicLink,
                                  NSError * _Nullable error) {
                         [self handleFirebaseLink:dynamicLink];
                     }];
     
-    
+    NSLog(@"%i",handled);
     return handled;
 }
 

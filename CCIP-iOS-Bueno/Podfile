@@ -17,6 +17,7 @@ target 'CCIP-iOS-Bueno' do
   pod 'iCarousel'
   pod 'CRToast'
   pod 'OneSignal'
+  pod 'Google/Analytics'
 
   target 'CCIP-iOS-BuenoTests' do
     inherit! :search_paths

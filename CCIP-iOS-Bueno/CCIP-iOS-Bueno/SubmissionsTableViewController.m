@@ -13,6 +13,7 @@
 #import "SubmissionsTimeCell.h"
 #import <MBProgressHUD.h>
 #import "SubmissionDetailViewController.h"
+#import <Google/Analytics.h>
 @interface SubmissionsTableViewController ()
 
 @property (strong, nonatomic) NSDictionary* submissions;
@@ -20,6 +21,8 @@
 @property (strong, nonatomic) NSDateFormatter* minFormatter;
 @property (strong, nonnull) NSDateFormatter* hmFormatter;
 @property (strong, nonatomic) NSArray* sortedSubmissionsKey;
+- (IBAction)refresh:(UIRefreshControl *)sender;
+
 
 @end
 
@@ -88,6 +91,9 @@
     } Failure:^(ErrorMessage * _Nonnull errorMessage) {
         
     }];
+    
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -98,6 +104,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker set:kGAIScreenName value:@"SubmissionsView"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [[GAI sharedInstance] dispatch];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,4 +213,14 @@
 }
 
 
+- (IBAction)refresh:(UIRefreshControl *)sender {
+    [[APIManager sharedManager] reloadSubmissions];
+    [[APIManager sharedManager] requestSubmissionWithCompletion:^(NSArray * _Nonnull submissions) {
+        [self loadSubmissions:submissions];
+        [self.tableView reloadData];
+        [sender endRefreshing];
+    } Failure:^(ErrorMessage * _Nonnull errorMessage) {
+        [sender endRefreshing];
+    }];
+}
 @end
