@@ -99,7 +99,7 @@
     } else if ([self.scenario.availableTime timeIntervalSinceDate:[NSDate date]] > 0) {
         [[NotificationManager sharedManager] showErrorAlert:NSLocalizedString(@"Scenario Status", nil) Subtitle:NSLocalizedString(@"Not available yet", nil)];
     } else {
-        UIAlertController *idiotProof = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Warning", nil) message:NSLocalizedString(@"ConfirmAlertText", nil) preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *idiotProof = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Warning", nil) message:NSLocalizedString(@"ConfirmAlertText", nil) preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[APIManager sharedManager] useScenarioWithScenrio:self.scenario Completion:^(Scenario * _Nonnull scenario) {
                 self.scenario = scenario;
