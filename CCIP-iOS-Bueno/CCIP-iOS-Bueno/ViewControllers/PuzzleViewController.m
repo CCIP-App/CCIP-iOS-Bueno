@@ -23,6 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]
+                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                    target:self
+                                    action:@selector(shareAction:)];
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -91,6 +96,17 @@
     [super viewDidAppear:animated];
     self.webView.frame = self.contentView.frame;
 }
+
+- (void)shareAction:(id)sender {
+    
+    NSURL* shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://puzzle.sitcon.party/?token=%@",[self sha1WithString:[[APIManager sharedManager] accessToken]]]];
+    
+    NSArray *activityItems = @[shareURL];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo];
+    [self presentViewController:activityVC animated:TRUE completion:nil];
+}
+
 /*
 #pragma mark - Navigation
 
